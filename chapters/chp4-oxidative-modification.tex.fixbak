@@ -1,0 +1,579 @@
+\chapter{Unveiling the Rewiring Effects of miRNA Oxidative Modification}
+\label{chp:unveiling-the-rewiring-effects-of-mirna}
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+The epitranscriptome encompasses the diverse chemical modifications that occur on RNA
+
+molecules after transcription, adding a dynamic regulatory layer to gene expression control \cite{ruden2025uncoveri} .
+
+Over 170 distinct RNA modifications have been identified, with N6-methyladenosine (m6A)
+
+being the most abundant internal modification in eukaryotic mRNA \cite{huo2020methylad} . These modifications
+
+can influence RNA stability, localization, translation efficiency, and molecular interactions
+
+without altering the underlying sequence. While extensive research has characterized
+
+modifications on mRNA and ribosomal RNA, the epitranscriptomic landscape of small
+
+regulatory RNAs, particularly miRNAs, remains comparatively underexplored. Given the
+
+critical role of miRNAs in post-transcriptional regulation, modifications that alter their function
+
+could have profound effects on gene expression networks and disease phenotypes.
+
+Oxidative stress, characterized by an imbalance between reactive oxygen species (ROS)
+
+production and antioxidant defense mechanisms, is a hallmark of numerous pathological
+
+conditions including cancer, cardiovascular disease, and neurodegeneration \cite{pizzino2017oxidativ} . In RNA, 8-
+
+oxoG formation occurs more frequently than in DNA because RNA is typically single-stranded,
+
+lacks protective histones, and is distributed throughout the cytoplasm where ROS are generated
+
+\cite{nie2013dependen} . Studies have demonstrated that RNA oxidation levels are elevated in disease states, with 8-
+
+oxoG accumulation correlating with disease severity and progression in multiple pathological
+
+contexts.
+
+The functional consequences of 8-oxoG modification are particularly significant when oxidation
+
+occurs within the miRNA seed region, the 7-nucleotide sequence (positions 2-8) that primarily
+
+determines target recognition through Watson-Crick base pairing \cite{min2010target} . The 8-oxoG modification
+
+alters the hydrogen bonding properties of guanine, shifting its pairing preference from cytosine
+
+to adenine \cite{eom2023widespre} . This single nucleotide change can fundamentally redirect the miRNA to
+
+recognize different target sequences. Experimental studies have demonstrated that seed-oxidized
+
+miRNAs lose affinity for their canonical targets while gaining the ability to bind previously
+
+
+unrecognized mRNAs. This mechanism represents a rapid, post-transcriptional means of
+
+reprogramming regulatory networks without requiring changes in miRNA expression levels or
+
+genomic mutations.
+
+In the preceding chapter, we established that edge information, representing regulatory
+
+relationships between miRNAs and their targets, provides unique insights for both clinical
+
+prediction and functional interpretation. However, those analyses operated under the assumption
+
+that network edges are static, determined solely by sequence complementarity between miRNA
+
+seeds and target sites. Oxidative modification challenges this assumption by introducing
+
+dynamic plasticity into the regulatory network. When a miRNA becomes oxidized, it effectively
+
+loses its original target edges and gains new connections to previously unregulated transcripts.
+
+This "rewiring" phenomenon means that the network architecture characterized in Module 2 is
+
+not fixed but can be dynamically reconfigured in response to cellular oxidative status, adding a
+
+new dimension to our understanding of miRNA-mediated regulation.
+
+Despite the significant biological implications of miRNA oxidation, systematic investigation has
+
+been severely constrained by technical barriers. The current gold-standard method for detecting
+
+8-oxoG modifications involves immunoprecipitation with anti-8-oxoG antibodies followed by
+
+sequencing (8-oxoG-IP-seq). This approach requires substantial starting material, specialized
+
+reagents, and considerable technical expertise, making it inaccessible to many laboratories. The
+
+complexity and cost of these protocols have resulted in fewer than ten published studies
+
+systematically examining miRNA oxidation. Furthermore, there is no standardized
+
+computational pipeline for analyzing oxidation data, limiting reproducibility and cross-study
+
+comparisons. The absence of large-scale oxidation profiles across diverse biological contexts
+
+represents a critical gap that hinders both mechanistic understanding and clinical translation of
+
+this regulatory mechanism.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p043_00.png}
+  \caption{Figure 12. . Overview of computational framework detecting miRNA oxidative modifications.}
+  \label{fig:overview-of-computational-framework-de}
+\end{figure}
+
+This chapter aims to extend the edge-centric analytical paradigm established in Module 2 to the
+
+dynamic dimension of epitranscriptomic modification. Specifically, we pursue three objectives.
+
+First, we develop a computational pipeline enabling detection of oxidative modifications from
+
+standard miRNA-seq data, thereby overcoming the technical barriers that have limited this field.
+
+Second, we apply this pipeline to liver cancer, demonstrating that oxidation-driven network
+
+rewiring has clinical relevance as a prognostic indicator. Third, we construct database resources
+
+to enable community-wide investigation of miRNA oxidation. By treating oxidation as a
+
+mechanism that rewires network edges, we directly extend the MTI-based and topology-based
+
+approaches, demonstrating the methodological continuity across this thesis.
+
+
+\section{Methods}
+\label{sec:methods}
+
+
+\subsection{Pipeline Design}
+\label{sec:pipeline-design}
+
+The foundation of our computational approach is a comprehensive reference library containing
+
+all theoretically possible oxidized miRNA sequences. For each annotated mature miRNA
+
+sequence, we systematically generated variants in which each guanine residue within the seed
+
+region (positions 2-8) was substituted with uracil, mimicking the base-pairing behavior of 8-
+
+
+oxoG. This approach accounts for both single-position and multi-position oxidation events. The
+
+reference library was constructed for human, mouse, and rat miRNomes, resulting in thousands
+
+of potential oxidized variants. Each variant was annotated with its parent miRNA identity,
+
+oxidation position(s), and predicted changes in target specificity, enabling downstream
+
+functional analysis of detected oxidation events.
+
+Our detection strategy builds upon established isomiR analysis methodologies, which have
+
+proven effective for identifying sequence variants in small RNA sequencing data. We
+
+implemented a hierarchical alignment approach using the miRge framework, first mapping reads
+
+to canonical miRNA sequences and then screening unmapped reads against our oxidized
+
+reference library. Reads aligning to oxidized variants with appropriate mismatch patterns (G-to-
+
+U at predicted oxidation positions) were flagged as potentially oxidized. The alignment
+
+parameters were optimized to balance sensitivity and specificity, allowing for the characteristic
+
+G-to-U substitutions while minimizing false positives from other sequence variants or
+
+sequencing errors.
+
+For each miRNA, we calculated the oxidation ratio as the proportion of reads mapping to
+
+oxidized variants relative to total reads (canonical plus oxidized). This ratio provides a
+
+quantitative measure of oxidation levels that can be compared across samples and conditions.
+
+We implemented multiple filtering criteria to ensure reliable detection: minimum read count
+
+thresholds to ensure adequate coverage, oxidation ratio thresholds to distinguish true signals
+
+from technical noise, and consistency filters requiring detection across replicate samples. The
+
+pipeline outputs comprehensive annotations including oxidation position, oxidation ratio, read
+
+counts for both native and oxidized forms, and predicted target rewiring consequences.
+
+
+\subsection{Validation Against Gold Standard}
+\label{sec:validation-against-gold-standard}
+
+To validate our computational approach, we benchmarked our pipeline against published 8-
+
+oxoG-IP-seq data from a study examining miRNA oxidation in cardiomyocytes under
+
+phenylephrine-induced stress \cite{seok2020position} . This dataset provided ground-truth oxidation profiles
+
+generated through antibody-based enrichment, enabling direct comparison with our
+
+
+computational predictions. We processed the corresponding input samples (without IP
+
+enrichment) through our pipeline and compared the identified oxidized miRNAs with those
+
+detected in the IP-enriched samples. This comparison assessed both the sensitivity of our
+
+approach (what proportion of truly oxidized miRNAs we could detect) and its specificity
+
+(whether we correctly identified the oxidized positions).
+
+Our computational pipeline successfully identified the key oxidized miRNA (rno-miR-1b)
+
+previously reported to be induced by phenylephrine treatment, with consistent oxidation
+
+positions and expression patterns. Quantitative comparison of oxidation levels between our
+
+computational predictions and the IP-based measurements revealed strong concordance, with
+
+Spearman correlation coefficients exceeding 0.82 for log-transformed oxidation signals. This
+
+high concordance demonstrates that our approach captures the same biological signal as
+
+immunoprecipitation-based methods, while enabling detection from standard sequencing data
+
+without specialized enrichment protocols.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p045_00.png}
+  \caption{Figure 13. . Validation of miRge against the O8G-IP Benchmark}
+  \label{fig:validation-of-mirge-against-the-o8g-ip}
+\end{figure}
+
+
+\subsection{Spike-in Control Experiments}
+\label{sec:spike-in-control-experiments}
+
+To rigorously characterize the detection limits and potential false-positive rates of our pipeline,
+
+we designed spike-in control experiments using synthetic miRNA oligonucleotides. We
+
+
+synthesized wild-type miR-122-3p and a variant containing a G-to-U substitution at the seed
+
+region, mimicking the sequence change resulting from oxidation. These oligonucleotides were
+
+mixed at defined ratios ranging from 1:100 to 100:1 (wild-type:oxidized mimic), with pure wild-
+
+type samples serving as negative controls. The mixtures were processed through standard small
+
+RNA library preparation and sequencing, then analyzed with our computational pipeline to
+
+assess detection accuracy across the range of oxidation levels.
+
+Analysis of pure wild-type samples (100:0 ratio) revealed a baseline apparent "oxidation" signal
+
+of approximately 1%, attributable to sequencing errors and library preparation artifacts that
+
+introduce G-to-U substitutions. This baseline rate was consistent across replicates and
+
+sequencing runs, providing a reliable estimate of the technical noise floor. The detection of
+
+oxidation signals scaled linearly with the true mixing ratio above this baseline, confirming that
+
+our pipeline accurately quantifies oxidation levels when they exceed the technical noise
+
+threshold.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p046_00.png}
+  \caption{Figure 14. . Sequencing results of spike-in control.}
+  \label{fig:sequencing-results-of-spike-in-control}
+\end{figure}
+
+Based on the spike-in results, we established 1% as the minimum oxidation ratio threshold for
+
+confident detection. Signals below this threshold cannot be reliably distinguished from
+
+sequencing artifacts and are therefore not reported. This empirically-derived threshold ensures
+
+that downstream analyses focus on biologically meaningful oxidation events while minimizing
+
+false-positive discoveries. The linear relationship between input oxidation levels and detected
+
+signals above this threshold validates the quantitative accuracy of our approach.
+
+
+\subsection{Validation in Standard miRNA-seq}
+\label{sec:validation-in-standard-mirna-seq}
+
+To further validate our computational approach in biologically relevant contexts, we developed
+
+an experimental platform combining standard miRNA sequencing with 8-oxoG
+
+immunoprecipitation. We generated paired samples from HepG2 hepatocellular carcinoma and
+
+MCF7 breast cancer cell lines under multiple conditions: untreated controls, hydrogen peroxide
+
+treatment to induce oxidative stress, N-acetylcysteine (NAC) treatment as an antioxidant control,
+
+and drug treatment conditions. For each condition, we performed both IP-enriched sequencing
+
+(gold standard) and standard input sequencing, enabling direct comparison of detection
+
+capabilities.
+
+Systematic comparison of oxidized miRNA species detected in IP-enriched versus input samples
+
+revealed substantial overlap. Over 80% of oxidized miRNA species identified through
+
+immunoprecipitation enrichment were also detectable in the corresponding input samples using
+
+our computational pipeline. While absolute read counts differed due to the enrichment effect of
+
+IP, the identity of oxidized miRNAs was highly concordant between methods. This
+
+demonstrates that the biological signal, which specific miRNAs are oxidized, is preserved in
+
+standard sequencing data and can be computationally extracted.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p048_00.png}
+  \caption{Figure 15.  (a) Comparisons of IP and input identified oxi-miRNAs. (b) The sum of mut reads}
+  \label{fig:a-comparisons-of-ip-and-input-identif}
+\end{figure}
+
+for only IP identified miRNAs.
+
+These validation experiments establish that our computational pipeline enables reliable detection
+
+of oxidative modifications from standard miRNA-seq data without requiring specialized
+
+immunoprecipitation protocols. This capability dramatically expands the scope of possible
+
+analyses by enabling retrospective analysis of existing datasets, large-scale screening across
+
+diverse biological conditions, and routine incorporation of oxidation profiling into standard
+
+sequencing workflows. The reduced technical barriers and costs associated with our approach
+
+open new avenues for systematic investigation of epitranscriptomic regulation.
+
+
+\section{Case Study: Oxidized miRNA Biomarkers in Liver Cancer}
+\label{sec:case-study-oxidized-mirna-biomarkers-in}
+
+We applied our oxidation detection pipeline to publicly available miRNA-seq datasets from
+
+hepatocellular carcinoma studies deposited in the Gene Expression Omnibus (GEO) database.
+
+
+Four independent datasets were selected based on availability of raw sequencing data, adequate
+
+sample sizes, and inclusion of both tumor and adjacent normal tissues. All datasets were
+
+processed through our standardized pipeline with consistent quality control parameters, enabling
+
+cross-dataset comparison and identification of consensus oxidation patterns.
+
+
+\subsection{Consensus Oxidized miRNA Identification}
+\label{sec:consensus-oxidized-mirna-identification}
+
+To identify robustly oxidized miRNAs in liver cancer, we implemented stringent consensus
+
+criteria requiring detection across multiple independent datasets. Specifically, we required
+
+oxidation ratios exceeding 5% (substantially above our 1% noise threshold), total read counts
+
+exceeding 50 (ensuring adequate coverage for reliable quantification), and consistent detection
+
+in at least three of the four analyzed datasets. These criteria yielded 11 consensus oxidized
+
+miRNAs (co-miRNAs) that represent high-confidence, reproducible oxidation events in
+
+hepatocellular carcinoma.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p049_00.png}
+  \caption{Figure 16.  Identifying oxidized miRNAs in liver cancer normal miRNA-seq data.}
+  \label{fig:identifying-oxidized-mirnas-in-liver-ca}
+\end{figure}
+
+
+\subsection{Target Rewiring Analysis: Gained and Lost Target Sets}
+\label{sec:target-rewiring-analysis-gained-and-los}
+
+For each consensus oxidized miRNA, we predicted the functional consequences of oxidation by
+
+defining "lost" and "gained" target sets. Lost targets were predicted using standard miRNA
+
+target prediction algorithms applied to the native seed sequence — these represent transcripts
+
+released from inhibition when the miRNA is oxidized. Gained targets were predicted using the
+
+
+same algorithms applied to the oxidized seed sequence (G-to-U substitution), these represent
+
+transcripts newly brought under regulation by the oxidized form. This target rewiring analysis
+
+provides the functional interpretation necessary for clinical translation.
+
+
+\subsection{Rewiring Activity Score (RAS) Development}
+\label{sec:rewiring-activity-score-ras-developmen}
+
+To quantify the functional impact of oxidation-driven rewiring at the single-sample level, we
+
+developed the Rewiring Activity Score (RAS). This metric is conceptually analogous to the
+
+MTI-based approach from Module 2, but adapted for the rewiring context. For each sample, we
+
+calculated pathway activity scores for the lost and gained target sets using Gene Set Variation
+
+Analysis (GSVA). The RAS is then computed as the difference between lost target activity and
+
+gained target activity: RAS = GSVA(Lost Targets) − GSVA(Gained Targets). A high RAS
+
+indicates strong rewiring effect, with substantial activation of released targets and/or suppression
+
+of newly targeted transcripts.
+
+
+\subsection{Survival Analysis in TCGA-LIHC Cohort}
+\label{sec:survival-analysis-in-tcga-lihc-cohort}
+
+We applied the RAS metric to the TCGA Liver Hepatocellular Carcinoma (LIHC) cohort to
+
+assess clinical relevance. For each of the 11 consensus oxidized miRNAs, we calculated sample-
+
+specific RAS values and stratified patients into high-RAS and low-RAS groups using median
+
+cutoffs. Kaplan-Meier survival analysis was performed to compare overall survival between
+
+groups, with log-rank tests for statistical significance. Analyses were conducted both across all
+
+patients and within specific tumor stages to identify stage-specific prognostic associations.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p050_00.png}
+  \caption{TODO: add caption}
+  \label{fig:fig-chp4-p050-00-png}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp4-p051_00.png}
+  \caption{Figure 17. . Oxidized miRNAs identified with prognostic power in HCC.}
+  \label{fig:oxidized-mirnas-identified-with-progno}
+\end{figure}
+
+
+\subsection{Mechanistic Insight: OXPHOS Metabolic Switch}
+\label{sec:mechanistic-insight-oxphos-metabolic-sw}
+
+To understand why high RAS correlates with poor prognosis, we investigated the biological
+
+pathways differentially regulated between high-RAS and low-RAS patient groups for the Stage
+
+II biomarker miR-10398-3p. GSEA revealed that high-RAS patients exhibited striking
+
+activation of oxidative phosphorylation (OXPHOS) pathways. While GO analysis showed
+
+suppression of classical oncogenic signaling, KEGG pathway analysis identified a compensatory
+
+metabolic shift toward mitochondrial respiration. This OXPHOS-high phenotype has been
+
+associated with tumor aggression, therapy resistance, and stem-like properties in multiple cancer
+
+types. Thus, oxidative rewiring of miR-10398-3p appears to drive a metabolic reprogramming
+
+event that confers aggressive tumor behavior.
+
+
+\begin{figure}[htbp]
+  \centering
+  % TODO: insert image file here
+  \caption{Figure 18. . Enrichment analysis identified OXPHOS activation in high-RAS stage II patients.}
+  \label{fig:enrichment-analysis-identified-oxphos}
+\end{figure}
+
+
+\section{Summary}
+\label{sec:summary}
+
+This chapter's primary methodological contribution is the development of a validated, scalable
+
+pipeline for detecting miRNA oxidative modifications from standard sequencing data. By
+
+eliminating the requirement for specialized immunoprecipitation protocols, our approach
+
+dramatically reduces the technical and financial barriers to oxidation profiling. The rigorous
+
+validation through benchmarking against gold-standard IP data, spike-in controls, and paired
+
+
+IP/input comparisons establishes the reliability of computational detection. The 1% threshold
+
+derived from spike-in experiments provides an empirically-grounded criterion for distinguishing
+
+true oxidation signals from technical artifacts. This methodology enables retrospective analysis
+
+of existing datasets, integration of oxidation profiling into routine sequencing workflows, and
+
+large-scale screening studies that would be impractical with current experimental approaches.
+
+The liver cancer case study demonstrates that oxidation-driven network rewiring has measurable
+
+clinical consequences. The identification of stage-specific prognostic biomarkers based on the
+
+Rewiring Activity Score establishes oxidized miRNAs as a novel biomarker class with potential
+
+clinical utility. Importantly, RAS captures functional information that simple oxidation level
+
+measurements would miss — it quantifies the downstream transcriptomic consequences of
+
+target switching rather than just the chemical modification itself. The mechanistic link to
+
+OXPHOS metabolic reprogramming provides biological plausibility for the observed prognostic
+
+associations and suggests therapeutic strategies. These findings establish proof-of-concept for
+
+clinical translation of epitranscriptomic biomarkers and motivate further investigation across
+
+additional cancer types and disease contexts.
+
+To enable systematic investigation of miRNA oxidation across diverse biological contexts, we
+
+constructed comprehensive oxidized miRNA reference libraries for human, mouse, and rat —
+
+the three species most commonly used in biomedical research. For each species, we processed
+
+all annotated mature miRNA sequences from miRBase, systematically generating variants for
+
+every possible single-position G-to-U substitution within the seed region. Multi-position
+
+oxidation variants were also generated for miRNAs containing multiple seed guanines. The
+
+resulting libraries contain thousands of oxidized variants per species, each annotated with parent
+
+miRNA identity, oxidation position, and species-specific genomic context. These libraries
+
+provide the foundation for our detection pipeline and enable cross-species comparative analyses.
+
+We are actively developing the OximiR database as a comprehensive community resource for
+
+miRNA oxidation research. The planned database will integrate our detection pipeline results
+
+from systematically processed public miRNA-seq datasets, enabling users to query oxidation
+
+profiles across diverse biological conditions, disease states, and experimental treatments. We are
+
+
+currently collecting and curating miRNA-seq data from GEO and other repositories, with
+
+particular emphasis on datasets from oxidative stress-related conditions including cancer,
+
+cardiovascular disease, and neurodegeneration. Upon completion, this resource will represent
+
+the first comprehensive atlas of miRNA oxidation modifications, catalyzing research into
+
+epitranscriptomic regulation and its clinical implications.
+

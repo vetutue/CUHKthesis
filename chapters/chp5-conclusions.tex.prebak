@@ -1,0 +1,150 @@
+\chapter{Conclusions and Prospects}
+\label{chp:conclusions-and-prospects}
+
+
+\section{Chapter 5. Conclusions and Prospects}
+\label{sec:chapter-5-conclusions-and-prospects}
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+In chapter 2, we addressed the critical gap of incomplete miRNA transcription start site annotation
+
+by developing miRStart 2.0, a deep learning platform integrating over 4,500 multi-modal
+
+sequencing datasets. The model achieved 83-93% accuracy in predicting experimentally validated
+
+TSSs, substantially outperforming existing methods. This enabled systematic annotation of 28,828
+
+putative TSSs across human and mouse miRNomes and mapping of over 6 million tissue-specific
+
+TF-miRNA interactions. By establishing the upstream regulatory layer of miRNA networks, this
+
+work provides the essential data foundation that enables comprehensive network analyses, directly
+
+supporting the integrative approaches pursued in subsequent modules.
+
+Chapter 3 established the value of edge-centric network analysis through two complementary case
+
+studies. In the first study, we demonstrated that MTI-based prognostic modeling significantly
+
+outperforms expression-based approaches in triple-negative breast cancer, with superior accuracy
+
+and robustness across independent validation cohorts. This validates the clinical utility of
+
+individual edge information. In the second study, we systematically characterized hub miR-483
+
+across six disease categories, revealing that context-specific network topology ， shared backbone
+
+with disease-specific dominant wiring ， explains its paradoxical functional duality. Together,
+
+these studies establish an analytical paradigm where edge information provides unique insights
+
+that node-centric approaches cannot capture.
+
+Chapter 4 extended the edge-centric paradigm to the dynamic dimension of epitranscriptomic
+
+modification. We developed a computational pipeline enabling detection of 8-oxo-guanine
+
+modifications from standard miRNA-seq data, validated against gold-standard
+
+immunoprecipitation data with over 80% concordance. Applying this pipeline to liver cancer, we
+
+introduced the Rewiring Activity Score to quantify modification-driven target switching. We
+
+identified stage-specific prognostic biomarkers and uncovered mechanistic links between
+
+oxidative rewiring and OXPHOS metabolic reprogramming. This work reveals that miRNA
+
+regulatory networks possess dynamic plasticity, with chemical modifications providing a
+
+mechanism for rapid network reconfiguration without changes in expression level.
+
+48
+
+
+\section{Future Directions}
+\label{sec:future-directions}
+
+The research presented in this thesis constructs a multi-dimensional framework
+
+for understanding miRNA regulation, traversing from transcriptional origins to
+
+dynamic epitranscriptomic modifications. Building upon this foundation, future
+
+investigations will expand into three critical dimensions: resolution, scale, and therapeutic
+
+translation.
+
+First, to enhance the granularity of upstream regulation, future iterations of miRStart
+
+will integrate emerging single-cell ATAC-seq (scATAC-seq) data. Moving beyond bulk-
+
+tissue averages, this approach will decipher cell-type-specific TF-miRNA regulatory
+
+circuits, unraveling how miRNA biogenesis is differentially controlled within the complex
+
+heterogeneity of the tumor microenvironment versus healthy tissues.
+
+Second, to scale the systematic discovery of dynamic rewiring, I aim to establish a
+
+fully automated, high-throughput computational pipeline to mine raw small-RNA
+
+sequencing data from public repositories (e.g., TCGA, GEO). This initiative will culminate in
+
+the construction of a Global Atlas of miRNA Oxidative Modifications. By systematizing the
+
+prediction of "Oxi-miR-target" interactions, this resource will enable the comprehensive
+
+assessment of how oxidative rewiring reshapes the transcriptome across diverse human
+
+pathologies.
+
+Finally, the translational potential of oxidative rewiring will be a primary focus. Building on the
+
+observed metabolic reprogramming (e.g., the OXPHOS shift), future studies will explore
+
+the emerging field of "Pharmaco-Epitranscriptomics." Specifically, we will investigate
+
+whether antioxidant interventions or specific small molecules can effectively reverse
+
+miRNA oxidation in vivo. This research aims to identify therapeutic agents capable of
+
+"resetting" the rewired regulatory networks, offering a novel strategy to combat metabolic
+
+plasticity and therapy resistance in aggressive cancers.
+
+49
+
+
+\section{References}
+\label{sec:references}
+
+1. Bartel, D.P. MicroRNAs: genomics, biogenesis, mechanism, and function. Cell 2004 , 116 , 281-297, doi:10.1016/s0092-8674(04)00045-5. 2. Balasubramanian, D.; Vanderpool, C.K. New developments in post-transcriptional regulation of operons by small RNAs. RNA Biol 2013 , 10 , 337-341, doi:10.4161/rna.23696. 3. Huang, H.Y.; Lin, Y.C.; Cui, S.; Huang, Y.; Tang, Y.; Xu, J.; Bao, J.; Li, Y.; Wen, J.; Zuo, H.; et al. miRTarBase update 2022: an informative resource for experimentally validated miRNA-target interactions. Nucleic Acids Res 2022 , 50 , D222-D230, doi:10.1093/nar/gkab1079. 4. Karagkouni, D.; Paraskevopoulou, M.D.; Chatzopoulos, S.; Vlachos, I.S.; Tastsoglou, S.; Kanellos, I.; Papadimitriou, D.; Kavakiotis, I.; Maniou, S.; Skoufos, G.; et al. DIANA- TarBase v8: a decade-long collection of experimentally supported miRNA-gene interactions. Nucleic Acids Res 2018 , 46 , D239-D245, doi:10.1093/nar/gkx1141. 5. Krol, J.; Loedige, I.; Filipowicz, W. The widespread regulation of microRNA biogenesis, function and decay. Nat Rev Genet 2010 , 11 , 597-610, doi:10.1038/nrg2843. 6. Mori, M.A.; Ludwig, R.G.; Garcia-Martin, R.; Brandao, B.B.; Kahn, C.R. Extracellular miRNAs: From Biomarkers to Mediators of Physiology and Disease. Cell Metab 2019 , 30 , 656-673, doi:10.1016/j.cmet.2019.07.011. 7. Zhou, S.S.; Jin, J.P.; Wang, J.Q.; Zhang, Z.G.; Freedman, J.H.; Zheng, Y.; Cai, L. miRNAS in cardiovascular diseases: potential biomarkers, therapeutic targets and challenges. Acta Pharmacol Sin 2018 , 39 , 1073-1084, doi:10.1038/aps.2018.30. 8. Georgakilas, G.; Vlachos, I.S.; Paraskevopoulou, M.D.; Yang, P.; Zhang, Y.; Economides, A.N.; Hatzigeorgiou, A.G. microTSS: accurate microRNA transcription start site identification reveals a significant number of divergent pri-miRNAs. Nat Commun 2014 , 5 , 5700, doi:10.1038/ncomms6700. 9. Li, P.; Xu, Q.; Hua, X.; Xie, Z.; Li, J.; Wang, J. primirTSS: an R package for identifying cell-specific microRNA transcription start sites. Bioinformatics 2020 , 36 , 3605-3606, doi:10.1093/bioinformatics/btaa173. 10. Suzuki, Y.; Yamashita, R.; Nakai, K.; Sugano, S. DBTSS: DataBase of human Transcriptional Start Sites and full-length cDNAs. Nucleic Acids Res 2002 , 30 , 328-331, doi:10.1093/nar/30.1.328. 11. Mundade, R.; Ozer, H.G.; Wei, H.; Prabhu, L.; Lu, T. Role of ChIP-seq in the discovery of transcription factor binding sites, differential gene regulation mechanism, epigenetic marks and beyond. Cell Cycle 2014 , 13 , 2847-2852, doi:10.4161/15384101.2014.949201. 12. Grigoriadis, D.; Perdikopanis, N.; Georgakilas, G.K.; Hatzigeorgiou, A.G. DeepTSS: multi-branch convolutional neural network for transcription start site identification from CAGE data. BMC Bioinformatics 2022 , 23 , 395, doi:10.1186/s12859-022-04945-y. 13. Wingender, E. The TRANSFAC project as an example of framework technology that
+
+50
+
+supports the analysis of genomic regulation. Brief Bioinform 2008 , 9 , 326-332, doi:10.1093/bib/bbn016. 14. Kozomara, A.; Birgaoanu, M.; Griffiths-Jones, S. miRBase: from microRNA sequences to function. Nucleic Acids Res 2019 , 47 , D155-D162, doi:10.1093/nar/gky1141. 15. Zou, Z.; Ohta, T.; Oki, S. ChIP-Atlas 3.0: a data-mining suite to explore chromosome architecture together with large-scale regulome data. Nucleic Acids Res 2024 , 52 , W45- W53, doi:10.1093/nar/gkae358. 16. De Paolis, V.; Lorefice, E.; Orecchini, E.; Carissimi, C.; Laudadio, I.; Fulci, V. Epitranscriptomics: A New Layer of microRNA Regulation in Cancer. Cancers (Basel) 2021 , 13 , doi:10.3390/cancers13133372. 17. Wang, J.X.; Gao, J.; Ding, S.L.; Wang, K.; Jiao, J.Q.; Wang, Y.; Sun, T.; Zhou, L.Y.; Long, B.; Zhang, X.J.; et al. Oxidative Modification of miR-184 Enables It to Target Bcl-xL and Bcl-w. Mol Cell 2015 , 59 , 50-61, doi:10.1016/j.molcel.2015.05.003. 18. Seok, H.; Lee, H.; Lee, S.; Ahn, S.H.; Lee, H.S.; Kim, G.D.; Peak, J.; Park, J.; Cho, Y.K.; Jeong, Y.; et al. Position-specific oxidation of miR-1 encodes cardiac hypertrophy. Nature 2020 , 584 , 279-285, doi:10.1038/s41586-020-2586-0. 19. Kloosterman, W.P.; Wienholds, E.; Ketting, R.F.; Plasterk, R.H. Substrate requirements for let-7 function in the developing zebrafish embryo. Nucleic Acids Res 2016 , 44 , 5993, doi:10.1093/nar/gkw173. 20. Liu, W.; Wang, X. Prediction of functional microRNA targets by integrative modeling of microRNA binding and target expression data. Genome Biol 2019 , 20 , 18, doi:10.1186/s13059-019-1629-z. 21. Lee, Y.; Kim, M.; Han, J.; Yeom, K.H.; Lee, S.; Baek, S.H.; Kim, V.N. MicroRNA genes are transcribed by RNA polymerase II. Embo J 2004 , 23 , 4051-4060, doi:10.1038/sj.emboj.7600385. 22. Lee, Y.; Ahn, C.; Han, J.; Choi, H.; Kim, J.; Yim, J.; Lee, J.; Provost, P.; Radmark, O.; Kim, S.; et al. The nuclear RNase III Drosha initiates microRNA processing. Nature 2003 , 425 , 415-419, doi:10.1038/nature01957. 23. Shiraki, T.; Kondo, S.; Katayama, S.; Waki, K.; Kasukawa, T.; Kawaji, H.; Kodzius, R.; Watahiki, A.; Nakamura, M.; Arakawa, T.; et al. Cap analysis gene expression for high- throughput analysis of transcriptional starting point and identification of promoter usage. Proc Natl Acad Sci U S A 2003 , 100 , 15776-15781, doi:10.1073/pnas.2136655100. 24. Consortium, F.; the, R.P.; Clst; Forrest, A.R.; Kawaji, H.; Rehli, M.; Baillie, J.K.; de Hoon, M.J.; Haberle, V.; Lassmann, T.; et al. A promoter-level mammalian expression atlas. Nature 2014 , 507 , 462-470, doi:10.1038/nature13182. 25. Suzuki, A.; Kawano, S.; Mitsuyama, T.; Suyama, M.; Kanai, Y.; Shirahige, K.; Sasaki, H.; Tokunaga, K.; Tsuchihara, K.; Sugano, S.; et al. DBTSS/DBKERO for integrated analysis of transcriptional regulation. Nucleic Acids Res 2018 , 46 , D229-D238, doi:10.1093/nar/gkx1001. 26. Luo, Y.; Hitz, B.C.; Gabdank, I.; Hilton, J.A.; Kagda, M.S.; Lam, B.; Myers, Z.; Sud, P.; Jou, J.; Lin, K.; et al. New developments on the Encyclopedia of DNA Elements (ENCODE) data portal. Nucleic Acids Res 2020 , 48 , D882-D889, doi:10.1093/nar/gkz1062.
+
+51
+
+27. Hammond, M.E.; Hayes, D.F.; Wolff, A.C.; Mangu, P.B.; Temin, S. American society of clinical oncology/college of american pathologists guideline recommendations for immunohistochemical testing of estrogen and progesterone receptors in breast cancer. J Oncol Pract 2010 , 6 , 195-197, doi:10.1200/JOP.777003. 28. Penault-Llorca, F.; Viale, G. Pathological and molecular diagnosis of triple-negative breast cancer: a clinical perspective. Ann Oncol 2012 , 23 Suppl 6 , vi19-22, doi:10.1093/annonc/mds190. 29. Kumar, V.; Gautam, M.; Chaudhary, A.; Chaurasia, B. Impact of three miRNA signature as potential diagnostic marker for triple negative breast cancer patients. Sci Rep 2023 , 13 , 21643, doi:10.1038/s41598-023-48896-7. 30. Yang, S.; Li, D. Role of microRNAs in triple‑negative breast cancer and new therapeutic concepts (Review). Oncol Lett 2024 , 28 , 431, doi:10.3892/ol.2024.14565. 31. Loh, H.-Y.; Norman, B.P.; Lai, K.-S.; Rahman, N.M.A.N.A.; Alitheen, N.B.M.; Osman, M.A. The Regulatory Role of MicroRNAs in Breast Cancer. International Journal of Molecular Sciences 2019 , 20 , 4940. 32. Fuchs Wightman, F.; Giono, L.E.; Fededa, J.P.; de la Mata, M. Target RNAs Strike Back on MicroRNAs. Front Genet 2018 , 9 , 435, doi:10.3389/fgene.2018.00435. 33. Tian, S.; Wang, J.; Zhang, F.; Wang, D. Comparative Analysis of microRNA Binding Site Distribution and microRNA-Mediated Gene Expression Repression of Oncogenes and Tumor Suppressor Genes. Genes (Basel) 2022 , 13 , doi:10.3390/genes13030481. 34. Lai, X.; Wolkenhauer, O.; Vera, J. Understanding microRNA-mediated gene regulatory networks through mathematical modelling. Nucleic Acids Res 2016 , 44 , 6019-6035, doi:10.1093/nar/gkw550. 35. Assidicky, R.; Tokat, U.M.; Tarman, I.O.; Saatci, O.; Ersan, P.G.; Raza, U.; Ogul, H.; Riazalhosseini, Y.; Can, T.; Sahin, O. Targeting HIF1-alpha/miR-326/ITGA5 axis potentiates chemotherapy response in triple-negative breast cancer. Breast Cancer Res Treat 2022 , 193 , 331-348, doi:10.1007/s10549-022-06569-5. 36. Kalecky, K.; Modisette, R.; Pena, S.; Cho, Y.R.; Taube, J. Integrative analysis of breast cancer profiles in TCGA by TNBC subgrouping reveals novel microRNA-specific clusters, including miR-17-92a, distinguishing basal-like 1 and basal-like 2 TNBC subtypes. BMC Cancer 2020 , 20 , 141, doi:10.1186/s12885-020-6600-6. 37. Zagami, P.; Carey, L.A. Triple negative breast cancer: Pitfalls and progress. NPJ Breast Cancer 2022 , 8 , 95, doi:10.1038/s41523-022-00468-0. 38. Liao, L. Inequality in breast cancer: Global statistics from 2022 to 2050. Breast 2024 , 79 , 103851, doi:10.1016/j.breast.2024.103851. 39. Hsu, J.Y.; Chang, C.J.; Cheng, J.S. Survival, treatment regimens and medical costs of women newly diagnosed with metastatic triple-negative breast cancer. Sci Rep 2022 , 12 , 729, doi:10.1038/s41598-021-04316-2. 40. Abudoureyimu, M.; Tayier, T.; Zhang, L. The role and mechanism of action of miR-483- 3p in mediating the effects of IGF-1 on human renal tubular epithelial cells induced by high glucose. Sci Rep 2024 , 14 , 15635, doi:10.1038/s41598-024-66433-y. 41. Agarwal, V.; Bell, G.W.; Nam, J.W.; Bartel, D.P. Predicting effective microRNA target
+
+52
+
+sites in mammalian mRNAs. Elife 2015 , 4 . 42. Agosta, C.; Laugier, J.; Guyon, L.; Denis, J.; Bertherat, J.; Libe, R.; Boisson, B.; Sturm, N.; Feige, J.J.; Chabre, O.; et al. MiR-483-5p and miR-139-5p promote aggressiveness by targeting N-myc downstream-regulated gene family members in adrenocortical cancer. Int J Cancer 2018 , 143 , 944-957, doi:10.1002/ijc.31363. 43. Liu, L.; Chen, H.; Yun, J.; Song, L.; Ma, X.; Luo, S.; Song, Y. miRNA-483-5p Targets HDCA4 to Regulate Renal Tubular Damage in Diabetic Nephropathy. Horm Metab Res 2021 , 53 , 562-569, doi:10.1055/a-1480-7519. 44. Menbari, M.N.; Rahimi, K.; Ahmadi, A.; Mohammadi-Yeganeh, S.; Elyasi, A.; Darvishi, N.; Hosseini, V.; Abdi, M. miR-483-3p suppresses the proliferation and progression of human triple negative breast cancer cells by targeting the HDAC8>oncogene. J Cell Physiol 2020 , 235 , 2631-2642, doi:10.1002/jcp.29167. 45. Peng, H.; Yu, Y.; Gu, H.; Qi, B.; Yu, A. MicroRNA-483-5p inhibits osteogenic differentiation of human bone marrow mesenchymal stem cells by targeting the RPL31- mediated RAS/MEK/ERK signaling pathway. Cell Signal 2022 , 93 , 110298, doi:10.1016/j.cellsig.2022.110298. 46. Niu, Z.Y.; Li, W.L.; Jiang, D.L.; Li, Y.S.; Xie, X.J. Mir-483 inhibits colon cancer cell proliferation and migration by targeting TRAF1. Kaohsiung J Med Sci 2018 , 34 , 479-486, doi:10.1016/j.kjms.2018.04.005. 47. McCann, M.J.; Rotjanapun, K.; Hesketh, J.E.; Roy, N.C. Expression profiling indicating low selenium-sensitive microRNA levels linked to cell cycle and cell stress response pathways in the CaCo-2 cell line. Br J Nutr 2017 , 117 , 1212-1221, doi:10.1017/S0007114517001143. 48. Zhou, W.; Yang, W.; Yang, J.; Zhu, H.; Duan, L.; Wang, X.; Li, Y.; Niu, L.; Xiao, S.; Zhang, R.; et al. miR‑483 promotes the development of colorectal cancer by inhibiting the expression level of EI24. Mol Med Rep 2021 , 24 , doi:10.3892/mmr.2021.12206. 49. Liang, H.; Xu, Y.; Zhang, Q.; Yang, Y.; Mou, Y.; Gao, Y.; Chen, R.; Chen, C.; Dai, P. MiR- 483-3p regulates oxaliplatin resistance by targeting FAM171B in human colorectal cancer cells. Artif Cells Nanomed Biotechnol 2019 , 47 , 725-736, doi:10.1080/21691401.2019.1569530. 50. Cui, H.; Liu, Y.; Jiang, J.; Liu, Y.; Yang, Z.; Wu, S.; Cao, W.; Cui, I.H.; Yu, C. IGF2- derived miR-483 mediated oncofunction by suppressing DLC-1 and associated with colorectal cancer. Oncotarget 2016 , 7 , 48456-48466, doi:10.18632/oncotarget.10309. 51. Sun, L.; Wan, A.; Zhou, Z.; Chen, D.; Liang, H.; Liu, C.; Yan, S.; Niu, Y.; Lin, Z.; Zhan, S.; et al. RNA-binding protein RALY reprogrammes mitochondrial metabolism via mediating miRNA processing in colorectal cancer. Gut 2021 , 70 , 1698-1712, doi:10.1136/gutjnl-2020-320652. 52. Candiello, E.; Reato, G.; Verginelli, F.; Gambardella, G.; A, D.A.; Calandra, N.; Orzan, F.; Iuliano, A.; Albano, R.; Sassi, F.; et al. MicroRNA 483-3p overexpression unleashes invasive growth of metastatic colorectal cancer via NDRG1 downregulation and ensuing activation of the ERBB3/AKT axis. Mol Oncol 2023 , 17 , 1280-1301, doi:10.1002/1878-0261.13408.
+
+53
+
+53. Song, Q.; Xu, Y.; Yang, C.; Chen, Z.; Jia, C.; Chen, J.; Zhang, Y.; Lai, P.; Fan, X.; Zhou, X.; et al. miR-483-5p promotes invasion and metastasis of lung adenocarcinoma by targeting RhoGDI1 and ALCAM. Cancer Res 2014 , 74 , 3031-3042, doi:10.1158/0008- 5472.CAN-13-2193. 54. Wang, W.; Zhao, L.J.; Yang, Y.; Wang, R.Y.; Ren, H.; Zhao, P.; Zhou, W.P.; Qi, Z.T. Retinoic acid induced 16 enhances tumorigenesis and serves as a novel tumor marker for hepatocellular carcinoma. Carcinogenesis 2012 , 33 , 2578-2585, doi:10.1093/carcin/bgs289. 55. Huang, X.; Lyu, J. Tumor suppressor function of miR-483-3p on breast cancer via targeting of the cyclin E1 gene. Exp Ther Med 2018 , 16 , 2615-2620, doi:10.3892/etm.2018.6504. 56. Fernandez Esmerats, J.; Villa-Roel, N.; Kumar, S.; Gu, L.; Salim, M.T.; Ohh, M.; Taylor, W.R.; Nerem, R.M.; Yoganathan, A.P.; Jo, H. Disturbed Flow Increases UBE2C (Ubiquitin E2 Ligase C) via Loss of miR-483-3p, Inducing Aortic Valve Calcification by the pVHL (von Hippel-Lindau Protein) and HIF-1alpha (Hypoxia-Inducible Factor- 1alpha) Pathway in Endothelial Cells. Arterioscler Thromb Vasc Biol 2019 , 39 , 467-481, doi:10.1161/ATVBAHA.118.312233. 57. Kong, L.; Hu, N.; Du, X.; Wang, W.; Chen, H.; Li, W.; Wei, S.; Zhuang, H.; Li, X.; Li, C. Upregulation of miR-483-3p contributes to endothelial progenitor cells dysfunction in deep vein thrombosis patients via SRF. J Transl Med 2016 , 14 , 23, doi:10.1186/s12967-016- 0775-2. 58. Qiao, Y.; Zhao, Y.; Liu, Y.; Ma, N.; Wang, C.; Zou, J.; Liu, Z.; Zhou, Z.; Han, D.; He, J.; et al. miR-483-3p regulates hyperglycaemia-induced cardiomyocyte apoptosis in transgenic mice. Biochem Biophys Res Commun 2016 , 477 , 541-547, doi:10.1016/j.bbrc.2016.06.051. 59. Qiao, Y.; Ma, N.; Wang, X.; Hui, Y.; Li, F.; Xiang, Y.; Zhou, J.; Zou, C.; Jin, J.; Lv, G.; et al. MiR-483-5p controls angiogenesis in vitro and targets serum response factor. FEBS Lett 2011 , 585 , 3095-3100, doi:10.1016/j.febslet.2011.08.039. 60. Saddic, L.A.; Chang, T.W.; Sigurdsson, M.I.; Heydarpour, M.; Raby, B.A.; Shernan, S.K.; Aranki, S.F.; Body, S.C.; Muehlschlegel, J.D. Integrated microRNA and mRNA responses to acute human left ventricular ischemia. Physiol Genomics 2015 , 47 , 455-462, doi:10.1152/physiolgenomics.00049.2015. 61. Sun, H.; Cai, J.; Xu, L.; Liu, J.; Chen, M.; Zheng, M.; Wang, L.; Yang, X. miR-483-3p regulates acute myocardial infarction by transcriptionally repressing insulin growth factor 1 expression. Mol Med Rep 2018 , 17 , 4785-4790, doi:10.3892/mmr.2018.8456. 62. Zhang, H.; Wang, J.; Du, A.; Li, Y. MiR-483-3p inhibition ameliorates myocardial ischemia/reperfusion injury by targeting the MDM4/p53 pathway. Mol Immunol 2020 , 125 , 9-14, doi:10.1016/j.molimm.2020.06.014. 63. Leng, C.; Sun, J.; Xin, K.; Ge, J.; Liu, P.; Feng, X. High expression of miR-483-5p aggravates sepsis-induced acute lung injury. J Toxicol Sci 2020 , 45 , 77-86, doi:10.2131/jts.45.77. 64. Zhang, Y.; Wang, Z.; Zhao, L.; Wen, M.; Li, J.; Lv, Q.; Wang, F.; Ma, J.; Sun, R.; Tao, Y.; et
+
+54
+
+al. Comprehensive evaluation of circRNAs in cirrhotic cardiomyopathy before and after liver transplantation. Int Immunopharmacol 2023 , 114 , 109495, doi:10.1016/j.intimp.2022.109495. 65. Yin, P.; Xue, Y. CircRNA hsa_circ_0006859 inhibits the osteogenic differentiation of BMSCs and aggravates osteoporosis by targeting miR-642b-5p/miR-483-3p and upregulating EFNA2/DOCK3. Int Immunopharmacol 2023 , 116 , 109844, doi:10.1016/j.intimp.2023.109844. 66. Liu, D.; Wu, Z.; Gao, J.; Mei, Q.; Zhang, X.; Wang, B. CircUTRN24/miR-483-3p/IGF-1 Regulates Autophagy Mediated Liver Fibrosis in Biliary Atresia. Mol Biotechnol 2024 , 66 , 1424-1433, doi:10.1007/s12033-023-00802-2. 67. Zhang, D.; Dong, X.; Li, X.; Yang, Y.; Li, H.; Hong, Y.; Yang, G.; Kong, X.; Wang, X.; Ma, X. Moxibustion ameliorates chronic inflammatory visceral pain via spinal circRNA- miRNA-mRNA networks: a central mechanism study. Mol Brain 2024 , 17 , 23, doi:10.1186/s13041-024-01093-7. 68. Chen, Y.; Li, J.; Xiao, J.K.; Xiao, L.; Xu, B.W.; Li, C. The lncRNA NEAT1 promotes the epithelial-mesenchymal transition and metastasis of osteosarcoma cells by sponging miR-483 to upregulate STAT3 expression. Cancer Cell Int 2021 , 21 , 90, doi:10.1186/s12935-021-01780-8. 69. Li, W.; Xu, W.; Sun, K.; Wang, F.; Wong, T.W.; Kong, A.N. Identification of novel biomarkers in prostate cancer diagnosis and prognosis. J Biochem Mol Toxicol 2022 , 36 , e23137, doi:10.1002/jbt.23137. 70. Hu, C.; Li, S.; Fu, X.; Zhao, X.; Peng, J. LncRNA NR2F1-AS1 was involved in azacitidine resistance of THP-1 cells by targeting IGF1 with miR-483-3p. Cytokine 2023 , 162 , 156105, doi:10.1016/j.cyto.2022.156105. 71. Li, S.; Zheng, K.; Pei, Y.; Wang, W.; Zhang, X. Long noncoding RNA NR2F1-AS1 enhances the malignant properties of osteosarcoma by increasing forkhead box A1 expression via sponging of microRNA-483-3p. Aging (Albany NY) 2019 , 11 , 11609-11623, doi:10.18632/aging.102563. 72. Yuan, L.; Zhang, P.; Lu, Y.; Zhang, A.; Chen, X. LINC00662 Promotes Proliferation and Invasion and Inhibits Apoptosis of Glioma Cells Through miR-483-3p/SOX3 Axis. Appl Biochem Biotechnol 2022 , 194 , 2857-2871, doi:10.1007/s12010-022-03855-2. 73. Lin, W.D.; Chang, C.H.; Pan, J.K.; Lin, F.C.; Chen, Y.C.; Chen, Y.J.; Wang, P.S.; Hong, W.Q.; Chen, S.Y.; Lin, C.H.; et al. A novel long non-coding RNA MIR4500HG003 promotes tumor metastasis through miR-483-3p-MMP9 axis in triple-negative breast cancer. Cell Death Dis 2024 , 15 , 310, doi:10.1038/s41419-024-06675-w. 74. Ruden, D.M. Uncovering the Epitranscriptome: A Review on mRNA Modifications and Emerging Frontiers. Genes (Basel) 2025 , 16 , doi:10.3390/genes16080951. 75. Huo, F.C.; Zhu, Z.M.; Pei, D.S. N(6) -methyladenosine (m(6)A) RNA modification in human cancer. Cell Prolif 2020 , 53 , e12921, doi:10.1111/cpr.12921. 76. Pizzino, G.; Irrera, N.; Cucinotta, M.; Pallio, G.; Mannino, F.; Arcoraci, V.; Squadrito, F.; Altavilla, D.; Bitto, A. Oxidative Stress: Harms and Benefits for Human Health. Oxid Med Cell Longev 2017 , 2017 , 8416763, doi:10.1155/2017/8416763.
+
+55
+
+77. Nie, B.; Gan, W.; Shi, F.; Hu, G.X.; Chen, L.G.; Hayakawa, H.; Sekiguchi, M.; Cai, J.P. Age-dependent accumulation of 8-oxoguanine in the DNA and RNA in various rat tissues. Oxid Med Cell Longev 2013 , 2013 , 303181, doi:10.1155/2013/303181. 78. Min, H.; Yoon, S. Got target? Computational methods for microRNA target prediction and their extension. Exp Mol Med 2010 , 42 , 233-244, doi:10.3858/emm.2010.42.4.032. 79. Eom, S.; Peak, J.; Park, J.; Ahn, S.H.; Cho, Y.K.; Jeong, Y.; Lee, H.S.; Lee, J.; Ignatova, E.; Lee, S.E.; et al. Widespread 8-oxoguanine modifications of miRNA seeds differentially regulate redox-dependent cancer development. Nat Cell Biol 2023 , 25 , 1369-1383, doi:10.1038/s41556-023-01209-6.
+
+56

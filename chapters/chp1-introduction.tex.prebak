@@ -1,0 +1,444 @@
+\chapter{Introduction}
+\label{chp:introduction}
+
+
+\section{Chapter 1. Introduction}
+\label{sec:chapter-1-introduction}
+
+
+\section{Background}
+\label{sec:background}
+
+MicroRNAs (miRNAs), a class of short non-coding RNA molecules \CITE{1} , have
+
+emerged as key players in the intricate landscape of post-transcriptional gene
+
+regulation. Their role in fine-tuning gene expression is pivotal, impacting various
+
+cellular processes, developmental stages, and pathological conditions \CITE{1,2} . Aberrant
+
+expression of miRNAs is related to the progression of many diseases through
+
+miRNA-target interactions (MTIs). Databases such as miRTarBase \CITE{3} and TarBase \CITE{4}
+
+have collected thousands of experimental validated MTIs to illustrate the complexity
+
+of miRNA regulations in various diseases. Numerous studies have been conducted to
+
+survey the potential medical value including biomarker of miRNAs.
+
+The identification and characterization of miRNA biomarkers have opened up
+
+exciting avenues in diagnostics and therapeutics. MiRNA regulation is an essential
+
+component of gene expression control. These small RNAs bind to the 3' untranslated
+
+region (UTR) of target mRNAs, leading to translational repression or mRNA
+
+degradation. In this manner, miRNAs serve as fine-tuners of protein expression,
+
+contributing to the homeostasis of numerous biological systems. The remarkable
+
+versatility of miRNAs, combined with their tissue-specific expression patterns, makes
+
+them potent candidates for biomarkers in various diseases \CITE{5} .
+
+As the field of miRNA regulation has advanced, miRNA biomarkers have gained
+
+attention for their potential in disease diagnosis, prognosis, and therapy response
+
+prediction. MiRNA expression profiles have been linked to a plethora of pathologies,
+
+including cancer, cardiovascular diseases, neurological disorders, and viral infections
+
+\CITE{6} . Their relatively stable presence in various body fluids, such as blood and urine,
+
+underscores their promise as non-invasive diagnostic tools. Researchers have
+
+identified that changes in levels of circulating miRNAs have been associated with a
+
+wide range of diseases, including type 2 diabetes (T2D), obesity, cardiovascular
+
+disease (CVD), cancer, neurodegenerative disorders, and others \CITE{6} . Moreover,
+
+miRNA dysregulation is associated with different stages of disease progression,
+
+1
+
+offering insights into the prognosis and potential therapeutic targets \CITE{7} .
+
+The downstream regulatory function of miRNAs,  their ability to post-
+
+transcriptionally repress target mRNAs, has been the primary focus of miRNA
+
+research for over two decades \CITE{8} . This sustained attention has yielded a wealth of
+
+experimentally validated data, curated into comprehensive databases that serve as
+
+essential resources for the research community. In contrast to the well-characterized
+
+downstream targets, the upstream transcriptional regulation of miRNAs remains less
+
+thoroughly explored. Like protein-coding genes, miRNA genes are transcribed by
+
+RNA Polymerase II from promoter regions that contain binding sites for transcription
+
+factors (TFs) \CITE{9} . These TF-miRNA regulatory relationships form the "input layer" of
+
+the miRNA regulatory network, determining when, where, and at what level specific
+
+miRNAs are expressed. Several databases have been developed to catalog TF-miRNA
+
+interactions. TransmiR provides a manually curated collection of TF-miRNA
+
+regulatory relationships derived from literature mining and experimental evidence \CITE{10} .
+
+Additionally, resources such as CircuitsDB \CITE{11} offer computationally predicted TF-
+
+miRNA interactions based on sequence motif analysis and regulatory network
+
+inference. However, these resources face significant limitations. The accurate
+
+identification of miRNA transcription start sites (TSSs), the precise genomic positions
+
+where transcription initiates, remains technically challenging \CITE{12} . Many current
+
+approaches rely on direct mapping of ChIP-seq peaks to miRNA loci, which suffers
+
+from high false-positive rates due to signal noise and lacks the resolution necessary
+
+for precise functional site delineation \CITE{13} . This incomplete annotation of upstream
+
+regulatory elements represents a critical bottleneck in our understanding of miRNA
+
+transcriptional control.
+
+The traditional reductionist approach to miRNA research, focusing on individual
+
+miRNAs and their specific targets, has generated invaluable insights into discrete
+
+regulatory mechanisms \CITE{14} . However, this molecule-centric paradigm fails to capture
+
+the emergent properties that arise from the collective behavior of miRNAs within
+
+complex regulatory networks. The system biology perspective offers a
+
+complementary framework that views miRNAs not as isolated entities but as nodes
+
+within interconnected regulatory networks. From this viewpoint, biological function is
+
+encoded not only in the expression levels of individual molecules but also in the
+
+2
+
+topology of their interactions \CITE{13} . miRNAs occupy a particularly important position
+
+within these networks, functioning as regulatory hubs that integrate upstream signals
+
+from transcription factors and disperse regulation to hundreds of downstream targets
+
+\CITE{15} .
+
+This network perspective has several advantages. First, network-level properties such
+
+as connectivity, modularity, and centrality can reveal functionally important
+
+regulatory elements that might be overlooked in single-molecule analyses. Second,
+
+network topology tends to be more conserved and robust than individual molecular
+
+abundances, potentially offering more stable biomarkers for clinical applications.
+
+Third, network analysis can uncover emergent regulatory mechanisms, such as feed-
+
+forward loops and feedback circuits, that coordinate gene expression programs across
+
+multiple pathways. Despite these conceptual advantages, the practical implementation
+
+of network-based miRNA analysis remains limited. Current research predominantly
+
+adopts a node-centric approach, focusing on expression level changes while
+
+underutilizing the information encoded in network edges, the regulatory relationships
+
+between molecules.
+
+While miRNAs are widely recognized for their regulatory roles, the emergence of
+
+oxidative modification on miRNAs has introduced an intriguing layer of complexity.
+
+Oxidative modification refers to the addition of oxidative moiety 8-hydroxyguanosine
+
+(8OH-G), to miRNA nucleotides \CITE{16} . The ROS-induced G-to-U transversion of
+
+miRNAs, especially in the seed sequence, leads to the altered mRNA targeting \CITE{17,18} .
+
+Such miRNA modifications alter the original mRNA targeting efficacy (from G-C to
+
+U-A pairing), thus allowing the 8OH-G miRNAs to recognize new mRNA target sites
+
+with altered targetomes, and significantly impact mRNA stability, target specificity,
+
+and regulatory functions \CITE{17} . 8OH-G miRNA was firstly identified cardiovascular
+
+diseases, in the H9c2 rat heart cell line, the ROS-induced 8OH-G modification in
+
+miRNA-184 leads to mismatching with the 3’ UTR of Bcl-xL and Bcl-w; this may
+
+contribute to increased cell apoptosis and enhanced susceptibility of the mouse heart
+
+to ischemia/reperfusion injury \CITE{17} . Phenylephrine treatment was also identified to
+
+increase 8OH-G modification of miRNA-1, predominantly at position 7 of the
+
+miRNA-1 seed sequence in H9c2 cells. Overexpression of 8OH-G-miRNA-1 or 7-U-
+
+miRNA-1 (in which G at position 7 is substituted with U) alone is sufficient to cause
+
+3
+
+cardiac hypertrophy in mice. On the other hand, inhibition of 8OH-G-miRNA-1 in
+
+mouse cardiomyocytes attenuated cardiac hypertrophy \CITE{18} . However, the study of
+
+miRNA oxidative modification is still in its infancy, and the full extent of its
+
+implications is only beginning to be understood. It is known that oxidative stress, a
+
+common hallmark of many diseases, can induce the modification. Consequently, the
+
+exploration of miRNA oxidative modification has significant implications for our
+
+understanding of the role of oxidative stress in disease pathogenesis.
+
+Recent advancements in sequencing technologies and innovative experimental
+
+approaches have paved the way for the systematic investigation of miRNA oxidative
+
+modification, by combining immunoprecipitation and small RNA sequencing, the
+
+mystery of oxidative miRNA have been enlightened \CITE{18} . The identification of specific
+
+modified miRNAs associated with diseases could potentially serve as valuable
+
+diagnostic and therapeutic targets. Moreover, understanding the regulatory effects of
+
+miRNA oxidative modification will enhance our comprehension of disease
+
+mechanisms and potentially offer novel strategies for intervention.
+
+
+\section{Motivation and Research Gaps}
+\label{sec:motivation-and-research-gaps}
+
+The first critical gap in current miRNA research concerns the incomplete annotation
+
+of upstream transcriptional regulation. Accurate identification of miRNA transcription
+
+start sites (TSSs) is fundamental to understanding how miRNA expression is
+
+controlled, as TSSs anchor the promoter regions where transcription factors bind to
+
+initiate transcription. However, TSS identification for miRNAs presents unique
+
+challenges compared to protein-coding genes. The genomic architecture of miRNA
+
+genes is highly variable: approximately 50% of human miRNAs are intragenic,
+
+located within introns of host genes and potentially sharing regulatory elements with
+
+their hosts, while the remaining intergenic miRNAs possess independent promoters
+
+that can be located tens of kilobases upstream from the mature miRNA sequence. This
+
+architectural diversity complicates the systematic annotation of miRNA TSSs.
+
+Existing experimental approaches, such as cap analysis of gene expression (CAGE-
+
+seq), have been successfully applied to map TSSs for mRNAs but face limitations
+
+when applied to miRNAs. The relatively low expression levels of primary miRNA
+
+4
+
+transcripts (pri-miRNAs) compared to mRNAs result in reduced signal-to-noise ratios,
+
+compromising detection sensitivity. Computational methods have attempted to predict
+
+miRNA TSSs using sequence features and epigenetic marks, but models trained on
+
+limited datasets often suffer from high false-positive rates. Consequently, current TF-
+
+miRNA interaction databases are constrained by the absence of accurate TSS
+
+annotations. Without knowing precisely where transcription begins, the mapping of
+
+TF binding sites to functional promoter regions remains imprecise, limiting our ability
+
+to construct comprehensive upstream regulatory networks.
+
+The second critical gap concerns a systematic bias in how miRNA networks are
+
+analyzed. Despite the conceptual shift toward systems biology, most current research
+
+remains fundamentally node-centric, focused on measuring and comparing the
+
+expression levels of individual miRNAs across conditions. This node-centric
+
+approach has practical origins: expression profiling is technically straightforward and
+
+generates readily interpretable data. However, it overlooks a fundamental aspect of
+
+network biology: information is encoded not only in nodes (molecules) but also in
+
+edges (relationships between molecules). The regulatory interaction between a
+
+miRNA and its target, including the strength, context, and functional consequence of
+
+that interaction, carries information that is distinct from and complementary to the
+
+expression level of either partner.
+
+Edge information operates at two layers. At the first layer, individual edges represent
+
+specific miRNA-target interactions. The regulatory coupling between a miRNA and
+
+its target — whether the interaction is active, what regulatory strength it exerts — can
+
+provide clinical information that surpasses expression levels alone. At the second
+
+layer, edge patterns represent the overall topology of how a miRNA connects to
+
+different targets and pathways. This topological context can determine the functional
+
+role of a miRNA in ways that its expression level cannot predict. Current research
+
+largely underutilizes both layers of edge information. Prognostic models typically rely
+
+on expression signatures, missing the potentially more robust signal encoded in
+
+regulatory relationships. Functional interpretation focuses on target identification
+
+rather than network architecture, failing to explain context-dependent phenomena
+
+such as why the same miRNA can exhibit opposite functions in different disease
+
+settings.
+
+5
+
+The third critical gap concerns the epitranscriptomic dimension of miRNA regulation,
+
+specifically, the role of oxidative modifications in dynamically rewiring miRNA
+
+regulatory networks. Under conditions of oxidative stress, which are prevalent in
+
+pathological states including cancer, reactive oxygen species (ROS) can chemically
+
+modify guanine bases in RNA to form 8-oxo-guanine (8-oxoG). When this
+
+modification occurs within the seed region of a miRNA — the 7-nucleotide sequence
+
+critical for target recognition — it alters the base-pairing preference from canonical
+
+G:C pairing to non-canonical 8-oxoG:A pairing. This single nucleotide change can
+
+fundamentally redirect the miRNA to a new set of targets, effectively rewiring the
+
+regulatory network without any change in miRNA expression level.
+
+Despite the profound implications of this mechanism, systematic investigation of
+
+miRNA oxidation has been severely limited by technical barriers. The current gold-
+
+standard approach,  immunoprecipitation with anti-8-oxoG antibodies followed by
+
+sequencing (8-oxoG-IP-seq) is technically demanding, expensive, and requires
+
+substantial input material. These constraints have resulted in fewer than 10 published
+
+studies systematically examining miRNA oxidation, leaving the prevalence,
+
+specificity, and functional consequences of this modification largely unexplored.
+
+Furthermore, the absence of standardized computational pipelines for analyzing
+
+oxidation data has hindered reproducibility and comparability across studies. The lack
+
+of publicly available oxidation profiles across diverse biological contexts represents a
+
+significant gap in our understanding of epitranscriptomic regulation, limiting the
+
+translation of this mechanism into clinical applications.
+
+
+\section{Objectives of the Study}
+\label{sec:objectives-of-the-study}
+
+• Decoding transcriptional control and establishing upstream regulatory data
+
+foundation.
+
+The first aim of this thesis is to develop a deep learning platform and
+
+comprehensive regulatory atlas for miRNA transcription start sites. Integrate
+
+multi-modal sequencing data including CAGE-seq, TSS-seq, ChIP-seq, and
+
+DNase-seq to train a convolutional neural network model while systematically
+
+annotating transcription factor binding sites in predicted promoter regions,
+
+6
+
+enabling tissue-specific exploration through an interactive web database with
+
+genome browser visualization and conservation analysis for targeted
+
+experimental design like CRISPR modulation.
+
+• Elucidating network architecture and demonstrating edge-centric value.
+
+The second aim of this thesis is to demonstrate the compensatory effect of edge-
+
+centric miRNA network analysis. Moreover, developing a framework quantifying
+
+miRNA-target interaction strength for clinical modeling in triple-negative breast
+
+cancer while reconstructing multi-layer networks for hub miRNAs incorporating
+
+upstream and downstream elements, enabling demonstration of complementary
+
+insights from individual edges and patterns that surpass node-centric approaches
+
+for dynamic network understanding.
+
+• Unveiling oxidative rewiring effect and extending the network dynamics.
+
+The third aim of this thesis is to develop a computational pipeline and database
+
+for detecting oxidative miRNA modifications. Construct an oxidized reference
+
+library with oxidation-aware alignment strategies benchmarked against
+
+experimental data and spike-in controls while quantifying rewiring through a
+
+Rewiring Activity Score for target switching analysis, enabling identification of
+
+prognostic biomarkers and mechanistic links to disease phenotypes across species
+
+for oxidative modification research.
+
+Collectively, this thesis is intended to create a systematic framework progressing from
+
+transcriptional regulation to epitranscriptomic modification. By integrating deep
+
+learning, network biology, and oxidative modification into a unified analytical
+
+pipeline, enabling comprehensive dissection of miRNA-mediated gene regulation
+
+across multiple dimensions and advancing both methodological innovation and
+
+mechanistic understanding.
+
+7

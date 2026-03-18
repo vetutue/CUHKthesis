@@ -55,12 +55,16 @@
 
 % abstract: english
 \newcommand{\makeabstract}{%
-	\chapter*{Abstract}
+	\clearpage
+	\thispagestyle{plain}
 	\addcontentsline{toc}{chapter}{Abstract}
+	\vspace*{-70pt}% ← 调这里控制"Abstract"标题距页顶位置，负值越大越靠上
+	{\parindent \z@ \raggedright\normalfont\Huge\bfseries Abstract\par\nobreak}
+	\vspace{20pt}% ← 标题与下方内容的间距
 	\begin{spacing}{1.2}
 	\noindent of thesis entitled:\par
 	\vspace{0.5em}
-	\noindent\underline{\MakeUppercase{\@title}}\par
+	{\setlength{\leftskip}{2em}\noindent\CJKunderline{THE MIRNA REGULATORY NEXUS: A SYSTEMATIC FRAMEWORK FROM TRANSCRIPTIONAL REGULATION TO EPITRANSCRIPTOMIC MODIFICATION}\par}
 	\vspace{0.5em}
 	\noindent Submitted by \@author\par
 	\noindent for the degree of \@degree\par
@@ -73,8 +77,12 @@
 
 % abstract: chinese
 \newcommand{\makeabstractChinese}{%
-	\chapter*{摘要}
+	\clearpage
+	\thispagestyle{plain}
 	\addcontentsline{toc}{chapter}{摘要}
+	\vspace*{-30pt}% ← 调这里控制"摘要"标题距页顶位置，负值越大越靠上
+	{\parindent \z@ \raggedright\normalfont\Huge\bfseries 摘要\par\nobreak}
+	\vspace{30pt}% ← 标题与下方内容的间距
 	\begin{spacing}{1.2}
 	\noindent\underline{\@titlezh}\par
 	\vspace{1em}

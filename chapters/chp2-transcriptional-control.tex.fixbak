@@ -1,0 +1,372 @@
+\chapter{Decoding the Transcriptional Control of miRNAs}
+\label{chp:decoding-the-transcriptional-control-of}
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+Transcription start sites (TSSs) represent the precise genomic positions where RNA polymerase
+
+II initiates transcription \cite{klooster2016substrat,liu2019predicti} . For miRNA genes, accurate TSS identification is fundamental to
+
+understanding transcriptional regulation because TSSs anchor the promoter regions where
+
+transcription factors (TFs) bind to control gene expression \cite{lee2004microrna} . Without knowing where
+
+transcription begins, mapping of TF binding sites to functional regulatory elements remains
+
+imprecise. Therefore, TSS annotation serves as the prerequisite for constructing comprehensive
+
+TF-miRNA regulatory networks and represents the essential first step toward understanding why
+
+specific miRNAs become dysregulated in disease states. The genomic organization of miRNA
+
+genes presents unique challenges for TSS identification \cite{lee2003nuclear} . Approximately 50% of human
+
+miRNAs are intragenic, located within introns of protein-coding host genes and potentially
+
+sharing transcriptional control with their hosts. The remaining miRNAs are intergenic,
+
+possessing independent promoters that can be located tens to hundreds of kilobases upstream
+
+from the mature miRNA sequence \cite{georgaki2014microtss} . This architectural diversity means that a single TSS
+
+prediction strategy cannot be universally applied, and context-specific approaches are required
+
+to accurately annotate the transcriptional origins of different miRNA classes.
+
+Existing approaches for miRNA TSS prediction face significant limitations. Experimental
+
+methods such as CAGE-seq, while effective for protein-coding genes, have reduced sensitivity
+
+for miRNAs due to the relatively low expression levels of primary miRNA transcripts \cite{shiraki2003gene} .
+
+Computational methods relying on sequence motifs or single data types suffer from high false-
+
+positive rates when applied to the diverse genomic contexts of miRNA genes \cite{suzuki2002dbtss} . Previous
+
+machine learning approaches trained on limited datasets lack generalization capability across
+
+different cell types and species. These limitations have resulted in incomplete and inconsistent
+
+TSS annotations across available databases, hindering systematic analysis of miRNA
+
+transcriptional regulation.
+
+
+This chapter aims to address the incomplete annotation of miRNA upstream regulation by
+
+developing a comprehensive computational platform for TSS prediction and TF-miRNA
+
+interaction mapping. Specifically, we pursue three objectives: first, to develop a deep learning
+
+model that integrates multi-modal genomic evidence for accurate TSS prediction; second, to
+
+systematically annotate TSSs and TF binding sites across human and mouse miRNomes; and
+
+third, to construct an accessible web resource that enables researchers to explore miRNA
+
+upstream regulation. By establishing this data foundation, we enable the network analyses
+
+pursued in subsequent chapters of this thesis.
+
+
+\section{Methods}
+\label{sec:methods}
+
+
+\subsection{Data Collection and Integration}
+\label{sec:data-collection-and-integration}
+
+We integrated five distinct types of high-throughput sequencing data to capture complementary
+
+signals associated with transcription initiation. CAGE-seq and TSS-seq provide direct evidence
+
+of transcription start sites through capture of 5'-capped RNA molecules. ChIP-seq data for
+
+H3K4me3 histone modification and RNA Polymerase II occupancy mark active promoter
+
+regions. DNase-seq identifies regions of open chromatin accessibility that are permissive for
+
+transcription factor binding. This multi-modal approach ensures that TSS predictions are
+
+supported by convergent evidence from orthogonal experimental techniques.
+
+In this major update, miRStart 2.0 integrates a high-resolution deep learning-based signal
+
+classification model with extensive gene transcription data from leading databases such as
+
+FANTOM \cite{consorti2014promoter} , DBTSS \cite{suzuki2018dbtss} , and ENCODE \cite{luo2020developm} . We aggregated over 4,500 high-throughput
+
+sequencing datasets from major genomic consortia and public repositories. The FANTOM5
+
+consortium provided extensive CAGE-seq data across hundreds of human and mouse cell types
+
+and tissues. The ENCODE project contributed ChIP-seq and DNase-seq data with standardized
+
+quality control. Additional datasets were retrieved from the Gene Expression Omnibus (GEO) to
+
+maximize coverage across biological conditions. All datasets were processed through uniform
+
+quality control pipelines to ensure consistency and comparability.
+
+
+\subsection{Deep Learning Model Architecture}
+\label{sec:deep-learning-model-architecture}
+
+The miRStart 2.0 model employs a multi-modal feature integration strategy that combines
+
+signals from all five data types into a unified predictive framework. For each candidate genomic
+
+region, sequencing read densities from each data type were extracted and normalized across a
+
+standardized window surrounding potential TSSs. These multi-dimensional features were
+
+concatenated into input matrices that preserve both the signal intensity and positional
+
+relationships of different genomic marks, enabling the model to learn complex patterns of co-
+
+occurrence that distinguish true TSSs from background. We designed a convolutional neural
+
+network (CNN) architecture optimized for recognizing spatial patterns in genomic signal data.
+
+The network comprises two convolutional layers for feature extraction, followed by three fully
+
+connected layers for classification. Convolutional filters were designed to capture both local
+
+signal peaks and broader regional patterns characteristic of promoter architecture. Dropout
+
+regularization and batch normalization were incorporated to prevent overfitting and improve
+
+generalization. The model outputs a probability score indicating the likelihood that a given
+
+position represents a true TSS.
+
+The model was trained on approximately 60,000 experimentally validated TSSs derived from
+
+the DataBase of Transcriptional Start Sites (DBTSS) and ENCODE database. Positive training
+
+examples were centered on validated TSSs, while negative examples were sampled from
+
+genomic regions lacking transcription initiation signals. The dataset was split into training
+
+(70%), validation (15%), and test (15%) sets with stratification to ensure balanced representation.
+
+Model performance was evaluated using standard classification metrics including accuracy,
+
+precision, recall, and area under the receiver operating characteristic curve (AUC-ROC).
+
+
+\subsection{TSS Annotation Pipeline}
+\label{sec:tss-annotation-pipeline}
+
+The trained model was applied to systematically scan upstream regions of all annotated pre-
+
+miRNAs in the human and mouse genomes. For each miRNA, we examined the region
+
+extending 100 kilobases upstream of the pre-miRNA sequence. Genomic positions where the
+
+model prediction score exceeded a threshold of 0.7 were flagged as putative TSSs. For miRNAs
+
+
+with multiple high-scoring positions, all candidates were retained to capture alternative promoter
+
+usage. The resulting annotations include TSS coordinates, prediction confidence scores, and
+
+tissue specificity profiles based on the underlying sequencing data support.
+
+
+\subsection{TF-miRNA Interaction Mapping}
+\label{sec:tf-mirna-interaction-mapping}
+
+With TSS positions established, we mapped transcription factor binding sites to functional
+
+promoter regions. We defined promoter windows extending 10,000 base pairs upstream to 1,000
+
+base pairs downstream of each annotated TSS. TF binding sites within these windows were
+
+identified by integrating ChIP-seq peak calls from ENCODE and other sources, filtered for those
+
+with supporting DNase-seq accessibility evidence. Conservation scores from UCSC were
+
+incorporated to prioritize evolutionarily constrained binding sites. This approach yielded tissue-
+
+specific TF-miRNA interaction networks reflecting the regulatory relationships controlling
+
+miRNA expression.
+
+
+\subsection{Web Database Development}
+\label{sec:web-database-development}
+
+We developed the miRStart 2.0 web database to provide community access to our annotations
+
+and analysis tools. The database features an interactive genome browser enabling visualization
+
+of TSS predictions alongside supporting sequencing tracks. Users can filter results by tissue type,
+
+conservation level, and prediction confidence. TF-miRNA interaction networks are presented
+
+through interactive visualizations with links to external resources for detailed TF information.
+
+The database also provides downloadable datasets and programmatic access through a REST
+
+API, facilitating integration with downstream analysis pipelines.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp2-p018_00.png}
+  \caption{Figure 1.  Graphic summarization for design and content of miRStart 2.0.}
+  \label{fig:graphic-summarization-for-design-and-co}
+\end{figure}
+
+
+\section{Results}
+\label{sec:results}
+
+
+\subsection{Performance Benchmarking Against Existing Tools}
+\label{sec:performance-benchmarking-against-existin}
+
+We benchmarked miRStart 2.0 against existing miRNA TSS prediction methods using an
+
+independent test dataset of 2,000 validated TSSs not included in model training. MiRStart 2.0
+
+consistently outperformed competing methods across all evaluation metrics for both human and
+
+mouse datasets. The model achieved an AUC-ROC exceeding 0.92, with balanced precision and
+
+recall indicating robust discrimination between true TSSs and background positions.
+
+Performance advantages were particularly pronounced for intergenic miRNAs, where existing
+
+
+methods showed reduced accuracy due to the variable distance between TSSs and mature
+
+miRNA sequences.
+
+
+\subsection{Validation with Experimentally Verified TSSs}
+\label{sec:validation-with-experimentally-verified}
+
+We validated model predictions against a curated set of 24 miRNAs with experimentally
+
+determined TSSs from multiple independent studies. These non-cell-specific validations
+
+represent TSSs that are consistently used across diverse cellular contexts. Our predictions
+
+achieved 83.3% exact positional match (0 base pair distance) with the experimentally validated
+
+TSSs, with the remaining predictions falling within 500 base pairs of validated positions. This
+
+high concordance demonstrates that miRStart 2.0 achieves the resolution necessary for accurate
+
+promoter delineation. We further validated predictions against 61 miRNA TSSs specifically
+
+characterized in human embryonic stem cells (hESCs), representing cell-type-specific promoter
+
+usage. For these more challenging cases, our model achieved 93.4% exact positional match with
+
+validated TSSs. The improved performance on cell-type-specific TSSs likely reflects the rich
+
+hESC representation in our training data from ENCODE. These results demonstrate that
+
+miRStart 2.0 can accurately identify context-dependent TSS usage when appropriate training
+
+data are available.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp2-p020_00.png}
+  \caption{Figure 2.  Evaluation of miRStart 2.0 model performance. (A-B) Performance comparison of}
+  \label{fig:evaluation-of-mirstart-2-0-model-perfor}
+\end{figure}
+
+miRStart 2.0 with other methods using an independent test set of 2,000 PCT samples in human
+
+and mouse datasets. (C-D) Comparison of the number of miRNA TSSs identified by miRStart
+
+2.0 and other methods: (C) using non-cell-specific data and (D) using hESC-specific data. (E-F)
+
+Comparison of the relative distance between predicted miRNA TSSs and validated TSSs: (E) for
+
+non-cell-specific data and (F) for hESC-specific data.
+
+
+\subsection{Comprehensive TSS and TF-miRNA Annotation}
+\label{sec:comprehensive-tss-and-tf-mirna-annotatio}
+
+
+Application of the validated pipeline yielded comprehensive annotations across human and
+
+mouse miRNomes. We identified 28,828 putative TSSs for 1,745 human miRNAs and 1,181
+
+mouse miRNAs, representing substantial expansion over previous annotations. Integration with
+
+TF ChIP-seq data enabled mapping of over 6 million tissue-specific TF-miRNA interactions.
+
+These interactions span hundreds of transcription factors and reveal complex regulatory circuits
+
+controlling miRNA expression. The tissue-specific nature of these annotations enables
+
+investigation of context-dependent miRNA regulation across diverse biological conditions.
+
+
+\subsection{miRStart 2.0 Database Features and Functionality}
+\label{sec:mirstart-2-0-database-features-and-funct}
+
+The miRStart 2.0 web database provides intuitive access to all generated annotations. The
+
+genome browser interface displays TSS predictions as interactive tracks, with color-coding
+
+indicating prediction confidence and tissue specificity. Users can overlay supporting evidence
+
+from individual sequencing datasets to assess data quality. The TF-miRNA interaction module
+
+presents regulatory networks as searchable tables and interactive network graphs. Conservation
+
+tracks enable identification of evolutionarily constrained regulatory elements. Export
+
+functionality supports downstream analysis in standard formats, and the comprehensive
+
+documentation facilitates integration into research workflows.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp2-p021_00.jpeg}
+  \caption{Figure 3.  Demonstration of web interfaces in miRStart 2.0. Here is an example of basic search. 2.4 Summary}
+  \label{fig:demonstration-of-web-interfaces-in-mirs}
+\end{figure}
+
+This chapter established the data foundation essential for subsequent analyses in this thesis. By
+
+
+developing miRStart 2.0, we addressed the critical gap of incomplete miRNA TSS annotation,
+
+enabling accurate mapping of upstream transcriptional control. The comprehensive TF-miRNA
+
+regulatory atlas provides the input layer of the miRNA regulatory network, complementing the
+
+well-characterized downstream target interactions. The methodological paradigm of data
+
+integration and deep learning prediction established here provides a template for addressing
+
+similar annotation challenges across regulatory genomics. Several limitations warrant
+
+consideration. Model performance depends on the availability and quality of training data,
+
+potentially limiting accuracy for cell types or species underrepresented in current datasets.
+
+Predictions represent computational estimates that require experimental validation for individual
+
+applications. The current pipeline does not distinguish between active and poised promoters,
+
+which would require integration of RNA-seq data. Future development will incorporate
+
+emerging single-cell ATAC-seq data to enable cell-type-specific predictions at unprecedented
+
+resolution, and expansion to additional species will broaden the utility of this resource.
+

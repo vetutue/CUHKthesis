@@ -1,0 +1,832 @@
+\chapter{Systematically Elucidating miRNA Network Architecture in Disease}
+\label{chp:systematically-elucidating-mirna-network}
+
+
+\section{Disease}
+\label{sec:disease}
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+Traditional miRNA research has predominantly relied on single-molecule profiling, measuring
+
+expression levels of individual miRNAs and correlating these with phenotypes or clinical
+
+outcomes \cite{hammond2010american} . While this reductionist approach has generated valuable insights, it faces
+
+fundamental limitations \cite{penaultl2012patholog} . Single-molecule analyses are susceptible to inter-sample
+
+heterogeneity, often resulting in poor reproducibility across independent cohorts \cite{kumar2023impact,yang2024role} .
+
+Furthermore, they cannot capture the emergent properties that arise from collective regulatory
+
+interactions \cite{loh2019regulato} . Network analysis offers a complementary perspective that views miRNAs as
+
+interconnected nodes within regulatory circuits, revealing stable topological features that are
+
+more robust to biological noise than individual molecular measurements \cite{fuchswig2018target} . Biological
+
+networks encode information in two fundamental components: nodes and edges. Nodes
+
+represent individual molecular entities — in the context of miRNA networks, these include
+
+miRNAs, their target mRNAs, and upstream regulators such as transcription factors. Edges
+
+represent the regulatory relationships connecting these molecules, the functional interactions
+
+through which miRNAs exert their biological effects \cite{tian2022comparat} . While nodes are characterized by
+
+quantitative properties such as expression level and abundance, edges encode qualitative and
+
+quantitative information about regulatory coupling, including interaction strength, directionality,
+
+and context specificity. Both components contribute to network function, yet current research
+
+predominantly focuses on nodal properties \cite{lai2016understa} .
+
+Edge information in miRNA networks operates at two distinct layers. The first layer comprises
+
+individual edges — specific miRNA-target interactions (MTIs) that represent discrete regulatory
+
+relationships. The strength and activity of these individual edges carry functional information,
+
+including clinical relevance for disease prognosis. The second layer comprises edge patterns, the
+
+overall topology of how a miRNA connects to multiple targets and pathways. These topological
+
+
+patterns encode functional context that determines how the same miRNA can exhibit different
+
+behaviors across biological settings \cite{assidick2022targetin} . Systematic analysis of both layers is essential for
+
+comprehensive network understanding. Despite the conceptual importance of edge information,
+
+current miRNA research exhibits a systematic node-centric bias. Expression profiling studies
+
+focus on identifying differentially expressed miRNAs, treating expression level as the primary
+
+functional readout \cite{kalecky2020integrat} . Prognostic models typically use miRNA expression signatures, ignoring
+
+the regulatory relationships that determine biological impact. Functional studies often identify
+
+targets without systematically analyzing the network architecture that shapes regulatory output.
+
+This bias leaves substantial information unexploited, the regulatory coupling between miRNAs
+
+and targets, the topological context that modulates function, and the network-level properties
+
+that distinguish functionally important miRNAs.
+
+This chapter aims to demonstrate the unique value of edge-centric network analysis through two
+
+complementary case studies. The first case study validates the clinical utility of individual edges,
+
+showing that MTI-based prognostic modeling outperforms expression-based approaches in
+
+triple-negative breast cancer. The second case study validates the functional interpretive power
+
+of edge patterns, demonstrating that network topology explains the context-dependent functional
+
+duality of hub miR-483 across diseases. Together, these studies establish an edge-centric
+
+analytical paradigm that provides the methodological foundation for extending network analysis
+
+to dynamic modifications in Chapter 4.
+
+
+\section{Case I: Improving Prognostic Accuracy via edge information}
+\label{sec:case-i-improving-prognostic-accuracy-vi}
+
+
+\subsection{Introduction}
+\label{sec:introduction}
+
+Triple-negative breast cancer (TNBC) is defined by the absence of estrogen receptor,
+
+progesterone receptor, and HER2 expression, representing approximately 15-20% of breast
+
+cancers \cite{zagami2022triple} . TNBC exhibits aggressive clinical behavior with high rates of recurrence and
+
+metastasis, and lacks the targeted therapeutic options available for hormone receptor-positive or
+
+HER2-amplified subtypes \cite{li2022identifi} . Patient outcomes are highly heterogeneous, creating urgent need
+
+
+for robust prognostic biomarkers \cite{hsu2022survival} . However, the substantial inter-patient molecular
+
+heterogeneity characteristic of TNBC poses significant challenges for biomarker development,
+
+as individual molecular features often fail to replicate across independent cohorts.
+
+We hypothesized that miRNA-target interaction scores, which capture the functional coupling
+
+between miRNAs and their targets, would provide more robust prognostic information than
+
+miRNA expression levels alone. This hypothesis is grounded in the reasoning that regulatory
+
+relationships represent the functional output of miRNA activity, whereas expression levels only
+
+indicate molecular abundance. If edges encode stable clinical information, MTI-based models
+
+should demonstrate superior predictive accuracy and better generalization across patient cohorts
+
+compared to expression-based approaches.
+
+
+\subsection{Materials and Methods}
+\label{sec:materials-and-methods}
+
+
+\section{Data collection}
+\label{sec:data-collection}
+
+Gene and miRNA expression profiles, as well as clinical data of patients with triple-negative
+
+breast cancer, were collected from two public datasets: TCGA_BRCA data from The Cancer
+
+Genome Atlas (TCGA) \cite{abudour2024role} and GSE19873 data from Gene Expression Omnibus (GEO,
+
+http://www.ncbi.nlm.nih.gov/geo/). These datasets encompass the expression profile of tumor
+
+tissues and adjacent normal tissues from breast cancer patients across subtypes. According to the
+
+clinical immunohistochemistry results, samples from TCGA and GEO with negative status for
+
+ER, HER2, and PR were selected as TNBC samples for further study \cite{agarwal2015predicti} .
+
+
+\section{Differential expression analysis of miRNAs and mRNAs}
+\label{sec:differential-expression-analysis-of-mirn}
+
+DESeq2 was used to analyze the differential expression of RNA-Seq data and miRNA-Seq data
+
+from the TCGA_TNBC dataset \cite{abudour2024role} . Differentially expressed miRNAs (DEmiR) were selected
+
+based on the following criteria: Benjamini-Hochberg adjusted p-value < 0.01 with average |log2
+
+Fold Change| ≥ 1 and baseMean (the average of gene expression across all samples) ≥ 50.
+
+Differentially expressed mRNAs were selected based on adjusted p-value < 0.01, an average
+
+|log2 Fold Change| ≥ 1, and baseMean (the average gene expression across all samples) ≥ 100.
+
+
+\section{Learn miRNA and mRNA regulatory correlation by neural network}
+\label{sec:learn-mirna-and-mrna-regulatory-correlat}
+
+The expression patterns of miRNA can be learned from the expression level of mRNA if the
+
+tight regulation between miRNAs and genes exists. A method based-on a four-layers neural
+
+network called HubmiR \cite{abudour2024role} was previously developed by our team to learn the expression
+
+pattern of miRNAs from mRNA in terms of pairing expression profiles retrieved from the
+
+TCGA database \cite{abudour2024role} among 33 types of cancers. It was tested to be robust and generalizable on
+
+both bulk and single-cell sequencing datasets. The contrast value of predicted miRNA
+
+expression between TNBC tissues and normal breast tissues was calculated to identify miRNAs
+
+playing a key role in TNBC regulation. miRNAs with contrast value >= 0.7 were selected for
+
+further analysis.
+
+
+\section{Selection of the prognosis-related miRNAs}
+\label{sec:selection-of-the-prognosis-related-mirna}
+
+First, the tumor stage (T-stage), metastasis stage (M-stage), node stage (N-stage), survival time
+
+and event of the TNBC sample were analyzed by univariate Cox regression and Random Forest
+
+algorithm to identify which feature is most associated with the TNBC patients’ survival outcome.
+
+By applying Random Forest Combination, miRNAs above the 85th percentile were selected as
+
+key features for T-stage classification. Intersections of selected miRNAs across TCGA datasets,
+
+HubmiR and Random Forest Combination were regarded as hub miRNAs of TNBC. To
+
+determine the superior set of miRNAs for prognostic prediction, Random Forest, and CatBoost
+
+algorithms were applied.
+
+
+\section{miRNA target gene identification}
+\label{sec:mirna-target-gene-identification}
+
+Four up-regulated miRNAs (hsa-miR-210-3p, hsa-miR-183-5p, hsa-miR-21-5p, hsa-miR-181b-
+
+5p) were subjected to target prediction. The mRNA targets of these four up-regulated miRNAs
+
+from TCGA were predicted using four in silico miRNA target prediction tools (TargetScan \cite{abudour2024role} ,
+
+MiRanda \cite{agosta2018promote} , RNAhybrid \cite{abudour2024role} , Pictar \cite{agosta2018promote} ). Experimentally validated MTI pairs were curated
+
+using the miRTarBase \cite{abudour2024role} . To further screen potential direct targets, various criteria were
+
+employed. Specifically, a MiRanda score of ≥ 140, a MiRanda minimum free energy (MFE) of
+
+≤ -10, and a TargetScan seed type of ≥ 7mer-A1 \cite{abudour2024role} for predicted targets were considered
+
+
+favorable choices. Using miRTarBase \cite{abudour2024role} , experimentally validated miRNA-target gene
+
+interaction pairs were curated, excluding those that have already been experimentally confirmed.
+
+The remaining miRNA-target gene interaction pairs were selected for further analysis.
+
+
+\section{Identification of the MTI prognostic risk model}
+\label{sec:identification-of-the-mti-prognostic-ris}
+
+We evaluated the correlation between mRNA and miRNA expression data using the Spearman
+
+correlation coefficient (ρ_(i,j)). A prognosis prediction model was developed using the formula:
+
+risk score (RS) = ∑(𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑘𝑘 × (exp(𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚 𝑖𝑖 ) × exp (𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚 𝑗𝑗 )) × 𝜌𝜌 𝑖𝑖,𝑗𝑗 . The prediction ability of the
+
+MTI prognostic risk model was assessed by the receiver operating characteristics curve (ROC)
+
+and area under the ROC curve (AUC). With the MTI prognostic model, the TNBC patients were
+
+divided into low- and high-RS groups based on the cutoff value generated by KMeans based on
+
+the risk score and survival outcome of patients. The associations between disease-free survival
+
+(DFS) and OS miRNA expression levels were estimated by the Kaplan-Meier method and log-
+
+rank test (Mantel-Cox).
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p027_00.png}
+  \caption{Figure 4.  The flowchart of the study.}
+  \label{fig:the-flowchart-of-the-study}
+\end{figure}
+
+
+\subsection{Results}
+\label{sec:results}
+
+The machine learning pipeline identified four hub miRNAs with robust prognostic significance:
+
+miR-181b-5p, miR-21-5p, miR-210-3p, and miR-183-5p. All four miRNAs showed significant
+
+differential expression in TNBC compared to normal tissue and demonstrated univariate
+
+association with overall survival. These miRNAs represent established oncogenic or tumor-
+
+suppressive factors with documented roles in breast cancer biology, supporting their biological
+
+relevance as prognostic indicators.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p028_00.png}
+  \caption{Figure 5.  Identifications of DEmiRs and DEGs. (A) Volcano plot of miRNA differential}
+  \label{fig:identifications-of-demirs-and-degs-a}
+\end{figure}
+
+expression in TNBC samples; (B) Volcano plot of mRNA differential expression in TNBC
+
+samples; (C) Heatmap of miRNA differential expression between TNBC samples and normal
+
+
+samples; (D) Heatmap of mRNA differential expression between TNBC samples and normal
+
+samples; (E) GO functional enrichment for differentially expressed mRNAs. Left: Top 10 bar
+
+chart of GO biological processes analysis; Right: Bar chart of GO molecular functions analysis.
+
+Target prediction and validation yielded eight high-confidence target genes regulated by the four
+
+hub miRNAs. From the 32 possible miRNA-target combinations, we identified 19 pairs with
+
+experimental validation support from published studies. Statistical analysis of MTI scores
+
+identified ten pairs with significant prognostic association, forming the feature set for MTI-
+
+based modeling. The resulting regulatory network reveals a complex architecture of overlapping
+
+target regulation among the hub miRNAs.
+
+The MTI-based model significantly outperformed the expression-based model across all
+
+evaluation metrics. In the TCGA training cohort, the MTI model achieved a C-index of 0.74
+
+compared to 0.65 for the expression model. Time-dependent AUC showed consistent
+
+advantages for MTI-based prediction across multiple time horizons. Kaplan-Meier analysis
+
+demonstrated that the MTI model provided stronger survival stratification, with greater
+
+separation between high-risk and low-risk patient groups.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p029_00.png}
+  \caption{Figure 6.  Luciferase reporter assay validation of identified MTI pairs.}
+  \label{fig:luciferase-reporter-assay-validation-of}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p030_00.png}
+  \caption{Figure 7.  (A) Expression profile of selected miRNAs and mRNAs in TNBC data; (B) The}
+  \label{fig:a-expression-profile-of-selected-mirn}
+\end{figure}
+
+miRNA-mRNA regulatory network in TNBC and network diagram of individual target gene
+
+
+functions.
+
+Critically, the performance advantage of MTI-based modeling was maintained in the
+
+independent GSE19783 validation cohort. While the expression-based model showed substantial
+
+performance degradation when applied to the external dataset, the MTI model retained robust
+
+predictive accuracy. This differential generalization supports our hypothesis that regulatory
+
+relationships encode more stable clinical information than expression levels, which are more
+
+susceptible to technical and biological variation across cohorts.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p031_00.png}
+  \caption{Figure 8.  Performance evaluation and validation of the MTI-based prognostic model in TNBC.}
+  \label{fig:performance-evaluation-and-validation-o}
+\end{figure}
+
+(A) ROC curves comparing the predictive performance of three approaches: 10 MTI correlations,
+
+
+10 MTI associated gene expression, and 4-miRNA signatures; (B) Distribution of risk score and
+
+overall survival status of the patients based on the risk score in TCGA cohorts; (C) Kaplan-
+
+Meier survival curves for high- and low-risk groups in the TCGA_TNBC cohort; (D)
+
+Distribution of risk score, and overall survival status of the patients based on the risk score in
+
+GSE19783 cohorts; (E) Kaplan-Meier survival curves for high- and low-risk groups in the
+
+GSE19783 validation cohort; (F) ROC curve of the 10 MTI correlation-based model in the
+
+GSE19783 dataset.
+
+Network analysis revealed 71 coherent feed-forward loops involving transcription factors, hub
+
+miRNAs, and their shared target genes. In these regulatory circuits, a transcription factor
+
+simultaneously regulates both the miRNA and the target gene, creating coordinated and robust
+
+regulatory control. The identification of these network motifs provides mechanistic context for
+
+the observed prognostic associations and suggests that the MTI-based approach captures
+
+biologically meaningful regulatory architecture.
+
+
+\subsection{Discussion}
+\label{sec:discussion}
+
+The superior performance of MTI-based prognostic modeling has important implications for
+
+clinical biomarker development. By quantifying regulatory relationships rather than molecular
+
+abundances, edge-based approaches capture the functional output of miRNA activity. This
+
+functional information is directly relevant to patient outcomes, as it reflects the downstream
+
+transcriptomic consequences of miRNA regulation. The success of this approach in TNBC
+
+suggests that edge-based biomarkers may offer advantages across cancer types characterized by
+
+molecular heterogeneity.
+
+A key advantage of MTI-based analysis is its robustness against the biological heterogeneity
+
+that confounds expression-based biomarkers. Expression levels are influenced by numerous
+
+factors including tumor cellularity, microenvironmental composition, and technical variables,
+
+contributing to poor cross-cohort reproducibility. Regulatory relationships, in contrast, represent
+
+stable functional connections that persist across these sources of variation. The improved
+
+generalization of the MTI model to an independent cohort demonstrates this robustness,
+
+
+supporting the utility of edge-based biomarkers for clinical translation.
+
+
+\section{Case II: Resolving the Context Dependency via Network Topology}
+\label{sec:case-ii-resolving-the-context-dependenc}
+
+
+\subsection{Introduction}
+\label{sec:introduction}
+
+MiR-483 presents a striking functional paradox that challenges simple interpretations of miRNA
+
+biology [43-45] . In cancer contexts, miR-483 consistently acts as an oncogene, promoting tumor
+
+cell proliferation, inhibiting apoptosis, and correlating with poor patient prognosis across
+
+multiple malignancies including hepatocellular carcinoma, colorectal cancer, and Wilms tumor
+
+[46-55] . However, in cardiovascular and metabolic diseases, the same miRNA functions as a
+
+protector, preventing cardiac fibrosis, ameliorating diabetic nephropathy, and conferring
+
+resistance to tissue injury [56-63] . This duality cannot be explained by differences in miR-483
+
+sequence or expression level, which remain constant across contexts.
+
+We hypothesized that the functional paradox of miR-483 could be explained by differences in
+
+network topology across disease contexts. Specifically, we proposed that while miR-483
+
+modulates a shared set of core signaling pathways, the dominant regulatory connections,
+
+determined by tissue-specific expression of targets and co-regulator, differ across contexts,
+
+leading to opposite functional outcomes. This hypothesis implies that function is not intrinsic to
+
+the miRNA sequence but emerges from the network architecture in which the miRNA operates.
+
+
+\subsection{Materials and Methods}
+\label{sec:materials-and-methods}
+
+We performed comprehensive literature curation to compile experimentally validated regulatory
+
+relationships involving miR-483. We systematically searched PubMed for studies reporting
+
+miR-483 interactions, extracting information on regulatory partners, interaction directionality,
+
+experimental validation methods, and disease context. This process yielded 146 studies
+
+providing validated interactions across multiple biological contexts. All curated interactions
+
+were annotated with evidence quality scores based on validation methodology.
+
+
+We constructed a comprehensive multi-layer regulatory network centered on miR-483. The
+
+upstream layer incorporated transcription factors regulating miR-483 expression, using data
+
+from our miRStart 2.0 platform supplemented by literature-curated TF-miRNA relationships.
+
+Additional upstream regulators including long non-coding RNAs (lncRNAs) and circular RNAs
+
+(circRNAs) that sponge or modulate miR-483 activity were included [64-73] . The downstream
+
+layer comprised validated target genes with their associated pathway annotations. This multi-
+
+layer architecture captures the complete regulatory context of miR-483.
+
+TF
+
+CircRNA
+
+LncRNA
+
+mRNA
+
+hsa-miR-483
+
+Outer Ring Detail
+
+TF from ChIP-seq data TF from literature LncRNA of miR-483-3p LncRNA of miR-483-3/5p LncRNA of miR-483-5p
+
+Internal Network
+
+TF LncRNA CircRNA mRNA target Literature evidence ChIP-seq evidence
+
+Target mRNA of miR-483-3p
+
+CircRNA of miR-483-3p CircRNA of miR-483-5p
+
+Target mRNA of miR-483-3/5p Target mRNA of miR-483-5p
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p034_00.jpeg}
+  \caption{TODO: add caption}
+  \label{fig:fig-chp3-p034-00-jpeg}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p034_01.png}
+  \caption{TODO: add caption}
+  \label{fig:fig-chp3-p034-01-png}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p034_02.png}
+  \caption{TODO: add caption}
+  \label{fig:fig-chp3-p034-02-png}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  % TODO: insert image file here
+  \caption{Figure 9.  Integrative regulatory network centered on miR-483. The network integrates 65}
+  \label{fig:integrative-regulatory-network-centered}
+\end{figure}
+
+upstream regulators (circRNAs, lncRNAs, and TFs) and 114 downstream targets (58 specific to
+
+miR-483-3p, 48 to miR-483-5p, 8 shared). Node colors of internal network indicate regulatory
+
+roles: blue for transcription factors, purple for lncRNAs, pink for circRNAs, green for mRNA
+
+targets. Size of nodes indicated the evidence level of interactions. Outer ring provides detailed
+
+classifications for subset groups. Network visualization performed using R software (v4.5.2).
+
+We partitioned the comprehensive network into disease-specific sub-networks based on the
+
+context in which each interaction was validated. Six major disease categories were defined:
+
+oncology, cardiopulmonary, metabolic, immune, neurological, and musculoskeletal disorders.
+
+For each category, we extracted the relevant subset of regulatory relationships and reconstructed
+
+the context-specific network topology. This approach enabled systematic comparison of network
+
+architecture across disease contexts.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p036_00.png}
+  \caption{Figure 10.  miR-483 regulated six disease-specific subnetworks: neoplasms, cardiopulmonary,}
+  \label{fig:mir-483-regulated-six-disease-specific}
+\end{figure}
+
+metabolic & endocrine, immune/autoimmune, nervous system, and musculoskeletal &
+
+developmental. Node shapes and colors represent regulatory categories: blue squares for
+
+transcription factors, pink squares for circRNAs, purple squares for lncRNAs, green circles for
+
+mRNA targets, and yellow rectangles for miRNAs. Edge colors indicate the mode of regulation:
+
+green edges represent transcriptional activation of miR-483 by upstream TFs, while red edges
+
+
+denote repressive interactions, including lncRNA/circRNA sequestration or miRNA-mediated
+
+mRNA suppression.
+
+We performed comparative topological analysis across disease-specific sub-networks to identify
+
+structural features explaining functional differences. We calculated node degree distributions,
+
+pathway enrichment for target gene sets, and identified the dominant regulatory modules in each
+
+context. Hub targets — genes with highest regulatory connectivity — were identified and
+
+compared across contexts. Pathway overlap analysis revealed shared backbone signaling while
+
+highlighting context-specific dominant wiring patterns.
+
+
+\subsection{Results}
+\label{sec:results}
+
+Literature curation and data integration yielded a comprehensive regulatory network comprising
+
+146 validated studies. The upstream layer includes 23 transcription factors, 8 lncRNAs, and 5
+
+circRNAs that regulate miR-483 expression or activity. The downstream layer comprises 87
+
+validated target genes distributed across multiple functional categories. Both miR-483-3p and
+
+miR-483-5p mature forms were represented, with partially overlapping but distinct target
+
+repertoires. This network represents the most comprehensive characterization of miR-483
+
+regulation to date.
+
+Analysis across six disease categories revealed consistent patterns in miR-483 function. In
+
+oncology contexts, miR-483 promotes tumor cell proliferation and survival, with target genes
+
+enriched in cell cycle regulation and apoptosis pathways. In cardiopulmonary and metabolic
+
+diseases, miR-483 confers protective effects against stress-induced injury and fibrosis. In
+
+neurological contexts, miR-483 shows neuroprotective functions. Immune and musculoskeletal
+
+effects were more context-dependent. This pan-disease landscape confirms the functional duality
+
+while revealing systematic patterns in disease-type associations.
+
+Comparative analysis identified a shared backbone of core signaling pathways that miR-483
+
+modulates across all disease contexts. These conserved pathways include MAPK/ERK signaling,
+
+TGF-β/SMAD signaling, and the cell survival/apoptosis axis. The edges connecting miR-483 to
+
+these core pathways represent the stable regulatory architecture that persists regardless of
+
+
+biological context. This shared backbone explains why miR-483 is functionally important across
+
+diverse diseases — it interfaces with fundamental cellular regulatory circuits.
+
+While the shared backbone provides common regulatory infrastructure, the dominant
+
+connections differ markedly across disease contexts. In cancer, dominant wiring connects miR-
+
+483 to tumor suppressor targets including PTEN and p53-related genes, with suppression of
+
+these checkpoints amplifying proliferative signaling. In cardiovascular disease, dominant wiring
+
+connects to RAAS (renin-angiotensin-aldosterone system) components, providing stress
+
+buffering and anti-fibrotic effects. In metabolic disease, dominant connections involve insulin
+
+signaling components conferring nephroprotective effects. These context-specific modules
+
+explain how the same miRNA produces opposite functional outcomes.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig-chp3-p038_00.png}
+  \caption{Figure 11.  Functional landscape of miR-483 downstream regulation across human diseases. The}
+  \label{fig:functional-landscape-of-mir-483-downstr}
+\end{figure}
+
+Sankey diagram illustrates the regulatory connections between six major disease categories (left
+
+column), the two arms of miR-483 (center column), and their downstream biological pathways
+
+Neoplasms
+
+Cell Survival
+
+& Apoptosis Regulation
+
+miR-483-3p
+
+miR-483-5p
+
+Cardiopulmonary
+
+Disorders
+
+Metabolic
+
+& Endocrine Conditions
+
+Immune-Mediated
+
+Diseases
+
+Nervous-System
+
+Disorders
+
+Musculoskeletal
+
+Developmental
+
+Disorders
+
+Inflammatory & Immune Regulation
+
+MAPK/ERK
+
+& Growth Factor
+
+Signaling
+
+Metabolic Homeostasis
+
+RAAS modulation
+
+Osteogenesis balance
+
+Tau phosphorylation
+
+TGF-β/SMAD
+
+Signaling
+
+Wnt/β-catenin
+
+Signaling
+
+
+(right column). The flows represent the functional linkage from a disease context, through a
+
+specific miRNA arm, to a regulated pathway. The color of each flow is determined by the
+
+originating disease category, allowing for the visual tracing of context-specific functions
+
+throughout the network.
+
+The topological analysis resolves the miR-483 functional paradox. The miRNA sequence is
+
+identical across contexts, and it consistently modulates a shared backbone of core signaling
+
+pathways. However, the relative activity of different downstream modules is determined by
+
+tissue-specific factors including target gene expression levels, competing endogenous RNAs,
+
+and co-regulatory relationships. In cancer contexts, checkpoint suppression modules dominate,
+
+producing oncogenic effects. In cardioprotective contexts, stress-response modules dominate,
+
+producing protective effects. Function follows wiring, not sequence.
+
+
+\subsection{Discussion}
+\label{sec:discussion}
+
+The miR-483 case study provides a paradigmatic example of emergent function — biological
+
+behavior that arises from network relationships rather than intrinsic molecular properties. This
+
+finding challenges the implicit assumption in much miRNA research that function is determined
+
+by sequence. While sequence specifies the universe of potential targets, the actual functional
+
+output depends on which targets are expressed and accessible in a given cellular context. This
+
+perspective has important implications for understanding miRNA biology and for developing
+
+miRNA-based therapeutics that must account for tissue-specific effects.
+
+The context-dependent function of miR-483 has important therapeutic implications. Strategies
+
+that globally inhibit or enhance miR-483 activity would produce different, potentially opposite
+
+effects in different tissues. Effective therapeutic targeting requires understanding the tissue-
+
+specific network architecture and identifying context-specific vulnerabilities. This might involve
+
+targeting the dominant modules active in disease contexts rather than the miRNA itself, or
+
+developing tissue-targeted delivery strategies. More broadly, these findings argue for network-
+
+aware approaches to miRNA therapeutics that consider the regulatory context in which miRNAs
+
+operate.
+
+
+\section{Summary}
+\label{sec:summary}
+
+This chapter establishes an edge-centric analytical paradigm for miRNA network analysis. The
+
+MTI-based prognostic modeling approach provides a template for incorporating regulatory
+
+relationships into clinical prediction models. The multi-layer network topology analysis
+
+provides a framework for systematic characterization of hub miRNAs across disease contexts.
+
+Both approaches shift focus from molecular abundances to regulatory relationships, capturing
+
+information that node-centric methods miss. This paradigm is generalizable beyond the specific
+
+case studies presented and provides the methodological foundation for extending network
+
+analysis to new dimensions. The two case studies demonstrate the complementary value of edge
+
+information at different analytical layers. Case Study I showed that individual edges — miRNA-
+
+target interactions — encode clinical information that surpasses expression-level analysis for
+
+prognostic prediction. Case Study II showed that edge patterns — network topology — provide
+
+functional insight that explains context-dependent behavior. These layers are not redundant but
+
+provide distinct types of information. Individual edges capture regulatory coupling strength
+
+relevant for clinical applications. Edge patterns capture functional context relevant for
+
+mechanistic understanding. Together, they provide comprehensive network characterization.
+

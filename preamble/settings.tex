@@ -4,6 +4,7 @@
 \usepackage{mathrsfs}
 \usepackage{mathtools}
 \usepackage{caption}
+\usepackage{titlesec}
 \captionsetup{labelfont=bf, labelsep=period}
 \usepackage[shortlabels,inline]{enumitem}
 
@@ -18,7 +19,7 @@
 \footskip 4.ex
 \renewcommand{\baselinestretch}{1.5}
 \usepackage{setspace}
-\usepackage[a4paper,inner=4cm,outer=2.5cm]{geometry}
+\usepackage[a4paper,inner=4cm,outer=2.5cm,bottom=2cm]{geometry}
 
 % English font
 \usepackage{fontspec}
@@ -88,6 +89,13 @@
 \setlength{\cftsubsecindent}{4.5em}
 \setlength{\cftbeforechapskip}{4pt}
 \setlength{\cftbeforesecskip}{1pt}
+
+% reduce top whitespace on chapter/abstract/contents first pages
+\usepackage{titlesec}
+\titlespacing*{\chapter}{0pt}{10pt}{0pt}
+
+% line-breaking underline (for abstract title, works with XeTeX)
+\usepackage{xeCJKfntef}
 
 % -------------------------- hyperlinks & bookmarks -------------------------- %
 \usepackage{aliascnt} %  \autoref
