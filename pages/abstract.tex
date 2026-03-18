@@ -1,3 +1,38 @@
 % !TEX root = ../thesis.tex
 
-In this thesis, we prove that $\ldots$. (English abstract)
+MicroRNAs (miRNAs) are pivotal post-transcriptional regulators, modulating up to
+60\% of protein-coding genes to maintain cellular homeostasis and influence disease
+pathogenesis. Despite their centrality, miRNA research remains siloed: upstream
+transcriptional annotations are incomplete, network analyses prioritize node-centric
+expression over edge relationships, and oxidative epitranscriptomic modifications are
+largely overlooked. These limitations lead to poor reproducibility and impede the
+translation of miRNA findings into robust clinical biomarkers. To overcome these
+challenges, this thesis constructs a systematic framework that transitions miRNA
+studies from fragmented, static, molecule-focused approaches to a holistic, dynamic,
+network-oriented paradigm, enabling mechanistic investigation and predictive modeling
+based on miRNA-mediated regulatory networks during disease progression.
+
+First, addressing the upstream gap, we developed miRStart 2.0, a deep
+learning-based platform integrating over 4,500 multi-modal datasets. Achieving
+high-resolution accuracy against experimentally validated data, it annotated 28,828
+miRNA transcription start sites and mapped over 6 million tissue-specific TF-miRNA
+interactions, laying a comprehensive data foundation for transcriptional control.
+
+Second, elucidating network architecture, we demonstrated that ``edge information''
+(regulatory interactions) offers insights equal to node abundance. In triple-negative
+breast cancer, our interaction-based prognostic model significantly outperformed
+traditional expression-based methods. Furthermore, topological analysis of the hub
+miR-483 resolved its context-dependent functional duality across diverse diseases,
+proving that network wiring dictates function.
+
+Third, unveiling oxidative rewiring, we developed a computational pipeline to detect
+oxidative footprints from standard miRNA-seq data. We introduced the rewiring
+activity score to quantify this dynamic network reprogramming, identifying
+stage-specific biomarkers in liver cancer that drive a critical metabolic shift toward
+oxidative phosphorylation.
+
+In conclusion, this framework integrates transcriptional origins, topological
+architecture, and epitranscriptomic plasticity, resolving the isolation in current
+miRNA research. By capturing the full complexity of miRNA-mediated regulatory
+networks, this work advances a systems-level comprehension of gene regulation and
+paves the way for novel precision interventions in complex diseases.

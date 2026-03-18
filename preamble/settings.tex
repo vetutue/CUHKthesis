@@ -4,6 +4,7 @@
 \usepackage{mathrsfs}
 \usepackage{mathtools}
 \usepackage{caption}
+\captionsetup{labelfont=bf, labelsep=period}
 \usepackage[shortlabels,inline]{enumitem}
 
 % figure
@@ -16,7 +17,12 @@
 % layout
 \footskip 4.ex
 \renewcommand{\baselinestretch}{1.5}
+\usepackage{setspace}
 \usepackage[a4paper,inner=4cm,outer=2.5cm]{geometry}
+
+% English font
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
 
 % Chinese
 \usepackage[scheme=plain]{ctex}
@@ -27,7 +33,7 @@
 
 % ------------------------------ reference style ----------------------------- %
 \usepackage[numbers,sort]{natbib} 	% automatically sort the citations
-%\renewcommand\bibname{Bibliography}
+\renewcommand\bibname{References}
 
 % ------------------------------ footer & header ----------------------------- %
 % \usepackage{fancyhdr}
@@ -71,8 +77,17 @@
 %\renewcommand{\footrulewidth}{0.4pt}
 %\renewcommand{\headrule}{\rule{\textwidth}{0.4pt}}
 
-% appendix
-\usepackage{appendix}
+% appendix (toc,page: adds "Appendices" divider page and TOC entry)
+\usepackage[toc,page]{appendix}
+
+% TOC formatting
+\usepackage{tocloft}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+\setlength{\cftsecindent}{2.5em}
+\setlength{\cftsubsecindent}{4.5em}
+\setlength{\cftbeforechapskip}{4pt}
+\setlength{\cftbeforesecskip}{1pt}
 
 % -------------------------- hyperlinks & bookmarks -------------------------- %
 \usepackage{aliascnt} %  \autoref

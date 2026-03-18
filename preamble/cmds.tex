@@ -1,4 +1,4 @@
-% !TEX root = ../thesis.tex
+﻿% !TEX root = ../thesis.tex
 \makeatletter
 % ----------------------------------- info ----------------------------------- %
 \newcommand{\titlezh}[1]{\gdef\@titlezh{#1}}%
@@ -57,8 +57,17 @@
 \newcommand{\makeabstract}{%
 	\chapter*{Abstract}
 	\addcontentsline{toc}{chapter}{Abstract}
-%	\vspace{0.5cm}
+	\begin{spacing}{1.2}
+	\noindent of thesis entitled:\par
+	\vspace{0.5em}
+	\noindent\underline{\MakeUppercase{\@title}}\par
+	\vspace{0.5em}
+	\noindent Submitted by \@author\par
+	\noindent for the degree of \@degree\par
+	\noindent at \@institution\ in \@date.\par
+	\vspace{1em}
 	\input{pages/abstract.tex}
+	\end{spacing}
 	\clearpage
 }
 
@@ -66,8 +75,11 @@
 \newcommand{\makeabstractChinese}{%
 	\chapter*{摘要}
 	\addcontentsline{toc}{chapter}{摘要}
-%	\vspace{0.5cm}
+	\begin{spacing}{1.2}
+	\noindent\underline{\@titlezh}\par
+	\vspace{1em}
 	\input{pages/abstract-zh.tex}
+	\end{spacing}
 	\clearpage
 }
 
@@ -97,10 +109,12 @@
 	\addcontentsline{toc}{chapter}{\bibname}
 }
 
-% add bookmark
+% add bookmark + TOC self-entry
 \newcommand{\addtocbm}{%
 	\cleardoublepage
+	\phantomsection
 	\pdfbookmark{\contentsname}{toc}
+	\addcontentsline{toc}{chapter}{\contentsname}
 }
 
 \makeatother

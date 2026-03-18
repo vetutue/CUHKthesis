@@ -15,19 +15,17 @@
 % ----------------------------------- misc ----------------------------------- %
 
 % ----------------------------------- info ----------------------------------- %
-\title{THESIS TITLE}
-\titlezh{中文标题}
-\author{LAST, First}
+\title{The miRNA Regulatory Nexus: A Systematic Framework from Transcriptional Regulation to Epitranscriptomic Modification}
+\titlezh{miRNA 调控枢纽：从转录调控到表观转录组修饰的系统性研究框架}
+\author{XU, Jiatong}
 \degree{Doctor of Philosophy}
-\programme{Mathematics}
-\institution{The Chinese University of Hong Kong}
-\date{December 2022}
+\programme{Biomedical Sciences}
+\institution{The Chinese University of Hong Kong, Shenzhen}
+\date{January 2026}
 \committee{%
-	Professor LAST First (Chair)\\
-	Professor ZHANG San (Thesis Supervisor)\\
-	Professor LI Si (Thesis Co-supervisor)\\
-	Professor WANG Wu (Committee Member)\\
-	Professor ZHAO Liu (External Examiner)%
+	Professor SUN Hao (Committee Chair)\\
+	Professor HUANG Hsien-Da (Thesis Supervisor)\\
+	Professor WANG Yongfei (Committee Member)%
 }
 
 % ---------------------------------------------------------------------------- %
@@ -43,7 +41,7 @@
 \makeabstract % english abstract
 \makeabstractChinese % chinese abstract
 
-\makeacknowledgement % acknowledgement 
+\makeacknowledgement % acknowledgement
 
 \hypersetup{linkcolor=black}
 \addtocbm
@@ -60,19 +58,24 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\include{chapters/chp1-introduction.tex}
-\include{chapters/chp2-preliminaries.tex}
-\include{chapters/chp3-proof.tex}
-\include{chapters/chp4-applications.tex}
+\include{chapters/chp1-introduction}
+\include{chapters/chp2-transcriptional-control}
+\include{chapters/chp3-mirna-network}
+\include{chapters/chp4-oxidative-modification}
+\include{chapters/chp5-conclusions}
 
 % --------------------------------- appendix --------------------------------- %
-\appendix
-\include{appendices/appx-A.tex}
+\begin{appendices}
+\include{appendices/appx-A-figures}
+\include{appendices/appx-B-tables}
+\include{appendices/appx-C-abbreviations}
+\include{appendices/appx-D-publications}
+\end{appendices}
 
 % ------------------------------- bibliography ------------------------------- %
-% \bibliographystyle{reference/bst/myplainnat.bst}
 \bibliographystyle{plain}
 \addbibtotoc
-\bibliography{reference/reference.bib}
+\nocite{*}
+\bibliography{reference/reference}
 
 \end{document}
